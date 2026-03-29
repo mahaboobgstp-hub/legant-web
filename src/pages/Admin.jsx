@@ -32,6 +32,16 @@ export default function Admin() {
     fetchOrders();
   };
 
+  useEffect(() => {
+  const auth = getAuth();
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      window.location.href = "/login";
+    }
+  });
+}, []);
+
   return (
     <div style={{ padding: 30 }}>
       <h2>Admin Dashboard</h2>
