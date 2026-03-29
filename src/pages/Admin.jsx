@@ -1,4 +1,4 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import {
@@ -42,9 +42,18 @@ export default function Admin() {
   });
 }, []);
 
+  const logout = async () => {
+  const auth = getAuth();
+  await signOut(auth);
+  window.location.href = "/login";
+};
+
   return (
     <div style={{ padding: 30 }}>
-      <h2>Admin Dashboard</h2>
+     <div style={{ display: "flex", justifyContent: "space-between" }}>
+  <h2>Admin Dashboard</h2>
+  <button onClick={logout}>Logout</button>
+</div>
 
       {orders.map(order => (
         <div key={order.id} style={{
