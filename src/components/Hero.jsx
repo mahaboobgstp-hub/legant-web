@@ -1,4 +1,9 @@
+import { useNavigate } from "react-router-dom";
 export default function Hero() {
+const navigate = useNavigate();
+
+
+
   return (
     <div className="hero">
 
@@ -10,8 +15,9 @@ export default function Hero() {
 
         <p>Pickup & Delivery Available!</p>
 
-        <button className="btn">Book Pickup</button>
-      </div>
+        <button onClick={() => navigate("/book")} className="btn">
+  Book Pickup
+</button>
 
       <div className="hero-right">
         <img src="/images/delivery-boy.png" alt="delivery" />
