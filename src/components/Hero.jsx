@@ -33,5 +33,6 @@ const navigate = useNavigate();
       <img src="/images/box.png" className="bg-icon box" />
 
     </div>
+    </div>  
   );
 }
