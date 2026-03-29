@@ -8,7 +8,7 @@ export default function ServicesPreview() {
       </div>
 
       <div className="service-item">
-        <img src="/images/ironing.png" />
+        <img src="/images/iron.png" />
         <p>Quick & Reliable</p>
       </div>
 
