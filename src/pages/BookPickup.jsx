@@ -23,20 +23,10 @@ export default function BookPickup() {
     <div style={{ padding: 20 }}>
       <h2>Book Pickup</h2>
 
-      <input
-        placeholder="Name"
-        onChange={(e) => setName(e.target.value)}
-      />
+      <input placeholder="Name" onChange={(e) => setName(e.target.value)} />
+      <input type="number" placeholder="Clothes Count" onChange={(e) => setItems(e.target.value)} />
 
-      <input
-        type="number"
-        placeholder="Number of Clothes"
-        onChange={(e) => setItems(e.target.value)}
-      />
-
-      <button onClick={submitOrder}>
-        Confirm Pickup
-      </button>
+      <button onClick={submitOrder}>Confirm Pickup</button>
     </div>
   );
 }
