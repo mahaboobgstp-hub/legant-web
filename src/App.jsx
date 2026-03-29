@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import BookPickup from "./pages/BookPickup";
 import OrderSummary from "./pages/OrderSummary";
 import Navbar from "./components/Navbar";
+import Admin from "./pages/Admin";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/book" element={<BookPickup />} />
         <Route path="/summary" element={<OrderSummary />} />
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );
