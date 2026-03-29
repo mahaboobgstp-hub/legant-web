@@ -39,3 +39,138 @@ body {
   border: 1px solid #ddd;
   margin-bottom: 15px;
 }
+
+/* ===== NAVBAR ===== */
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo {
+  color: #1E40AF;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #334155;
+  font-weight: 500;
+}
+
+.login-btn {
+  background: #1E40AF;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+}
+
+/* ===== HERO ===== */
+
+.hero {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 40px;
+  background: linear-gradient(to right, #eef2ff, #f8fafc);
+  overflow: hidden;
+}
+
+.hero-left {
+  max-width: 500px;
+}
+
+.hero-left h1 {
+  font-size: 42px;
+  color: #1E3A8A;
+}
+
+.hero-left p {
+  margin: 15px 0;
+  color: #64748B;
+  font-size: 18px;
+}
+
+.hero-right img {
+  width: 350px;
+}
+
+/* ===== BACKGROUND ICONS ===== */
+
+.bg-icon {
+  position: absolute;
+  opacity: 0.2;
+}
+
+.truck {
+  top: 80px;
+  right: 300px;
+  width: 60px;
+}
+
+.hanger {
+  top: 120px;
+  right: 150px;
+  width: 60px;
+}
+
+.box {
+  bottom: 40px;
+  right: 250px;
+  width: 70px;
+}
+
+/* ===== SERVICES ===== */
+
+.services {
+  display: flex;
+  justify-content: space-around;
+  padding: 30px;
+  background: #f1f5f9;
+}
+
+.service-item {
+  text-align: center;
+}
+
+.service-item img {
+  width: 40px;
+  margin-bottom: 10px;
+}
+
+/* ===== MOBILE ===== */
+
+@media (max-width: 768px) {
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-right img {
+    width: 250px;
+    margin-top: 20px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .services {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+}
