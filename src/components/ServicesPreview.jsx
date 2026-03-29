@@ -13,7 +13,7 @@ export default function ServicesPreview() {
       </div>
 
       <div className="service-item">
-        <img src="/images/delivery.png" />
+        <img src="/images/foldedclothes.png" />
         <p>Satisfaction Guaranteed</p>
       </div>
 
