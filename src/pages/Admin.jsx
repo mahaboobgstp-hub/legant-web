@@ -49,42 +49,32 @@ export default function Admin() {
 };
 
   return (
-    <div style={{ padding: 30 }}>
-     <div style={{ display: "flex", justifyContent: "space-between" }}>
-  <h2>Admin Dashboard</h2>
-  <button onClick={logout}>Logout</button>
-</div>
+    <div className="container">
+  <div style={{ display: "flex", justifyContent: "space-between" }}>
+    <h2>Admin Dashboard</h2>
+    <button className="btn" onClick={logout}>Logout</button>
+  </div>
 
-      {orders.map(order => (
-        <div key={order.id} style={{
-          border: "1px solid #ccc",
-          padding: 15,
-          marginBottom: 15
-        }}>
-          <p><b>Name:</b> {order.name}</p>
-          <p><b>Phone:</b> {order.phone}</p>
-          <p><b>Items:</b> {order.items}</p>
-          <p><b>Status:</b> {order.status}</p>
+  {orders.map(order => (
+    <div className="card" key={order.id} style={{ marginTop: 20 }}>
+      
+      <h3>{order.name}</h3>
+      <p>📞 {order.phone}</p>
+      <p>👕 Items: {order.items}</p>
+      <p>📌 Status: <b>{order.status}</b></p>
 
-          {order.imageUrl && (
-            <img src={order.imageUrl} width="150" />
-          )}
+      {order.imageUrl && (
+        <img src={order.imageUrl} width="150" style={{ borderRadius: 8 }} />
+      )}
 
-          <br /><br />
+      <div style={{ marginTop: 15 }}>
+        <button className="btn" onClick={() => updateStatus(order.id, "Picked Up", order.phone)}>Picked Up</button>
+        <button className="btn" onClick={() => updateStatus(order.id, "Ironing", order.phone)} style={{ marginLeft: 10 }}>Ironing</button>
+        <button className="btn" onClick={() => updateStatus(order.id, "Delivered", order.phone)} style={{ marginLeft: 10 }}>Delivered</button>
+      </div>
 
-          <button onClick={() => updateStatus(order.id, "Picked Up")}>
-            Picked Up
-          </button>
-
-          <button onClick={() => updateStatus(order.id, "Ironing")}>
-            Ironing
-          </button>
-
-          <button onClick={() => updateStatus(order.id, "Delivered")}>
-            Delivered
-          </button>
-        </div>
-      ))}
     </div>
+  ))}
+</div>
   );
 }
