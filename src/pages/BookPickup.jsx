@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
+import PhotoUpload from "../components/PhotoUpload";
 
 export default function BookPickup() {
   const [name, setName] = useState("");
