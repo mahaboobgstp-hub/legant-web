@@ -50,4 +50,4 @@ export default function BookPickup() {
     </button>
   </div>
 </div>
-)
+);
