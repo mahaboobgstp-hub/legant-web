@@ -4,6 +4,7 @@ import BookPickup from "./pages/BookPickup";
 import OrderSummary from "./pages/OrderSummary";
 import Navbar from "./components/Navbar";
 import Admin from "./pages/Admin";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/book" element={<BookPickup />} />
         <Route path="/summary" element={<OrderSummary />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );
