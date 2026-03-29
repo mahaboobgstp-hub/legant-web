@@ -13,7 +13,13 @@ const navigate = useNavigate();
 
         <p>Pickup & Delivery Available!</p>
 
-        <button onClick={() => navigate("/book")} className="btn">
+        <button
+  onClick={() => {
+    console.log("clicked");
+    navigate("/book");
+  }}
+  className="btn"
+>
   Book Pickup
 </button>
 
