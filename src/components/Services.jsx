@@ -21,7 +21,7 @@ export default function Services() {
         </div>
 
         <div className="service-card" onClick={() => navigate("/book")}>
-          <img src="/images/ironing.png" />
+          <img src="/images/iron.png" />
           <h3>Professional Ironing</h3>
           <p>
             High-quality steam ironing handled with care to ensure your clothes
