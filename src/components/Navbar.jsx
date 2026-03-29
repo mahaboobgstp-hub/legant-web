@@ -14,7 +14,9 @@ export default function Navbar() {
         <a href="#">Contact</a>
       </div>
 
-      <button className="login-btn">Login / Sign Up</button>
+       <Link to="/login">
+        <button className="login-btn">Login / Sign Up</button>
+      </Link>
 
     </div>
   );
