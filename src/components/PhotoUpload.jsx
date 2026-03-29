@@ -14,7 +14,7 @@ export default function PhotoUpload({ setImageUrl }) {
 
     const data = new FormData();
     data.append("file", file);
-    data.append("upload_preset", "legant_upload"); // ✅ your preset
+    data.append("upload_preset", "legant-upload"); // ✅ your preset
 
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/de67mol0y/image/upload", // ✅ your cloud name
