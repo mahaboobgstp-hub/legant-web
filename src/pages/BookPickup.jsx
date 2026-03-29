@@ -30,26 +30,23 @@ export default function BookPickup() {
 
     return (
     <div className="container">
-      <div className="card">
-        <h2>Book Pickup</h2>
+  <div className="card">
+    <h2>Schedule Pickup</h2>
 
-        <input placeholder="Name" onChange={e => setName(e.target.value)} /><br /><br />
-        <input placeholder="Phone" onChange={e => setPhone(e.target.value)} /><br /><br />
-        <input placeholder="Clothes Count" onChange={e => setItems(e.target.value)} /><br /><br />
+    <input className="input" placeholder="Name" onChange={e => setName(e.target.value)} />
+    <input className="input" placeholder="Phone" onChange={e => setPhone(e.target.value)} />
+    <input className="input" placeholder="Address" onChange={e => setAddress(e.target.value)} />
+    <input className="input" placeholder="Clothes Count" onChange={e => setItems(e.target.value)} />
 
+    <h4>Upload Clothes Photo</h4>
+    <PhotoUpload setImageUrl={setImageUrl} />
 
-        <h4>Upload Clothes Photo</h4>
+    {imageUrl && <img src={imageUrl} width="120" style={{ marginTop: 10 }} />}
 
-<PhotoUpload setImageUrl={setImageUrl} />
+    <br /><br />
 
-{imageUrl && (
-  <img src={imageUrl} width="150" />
-)}
-
-        <button className="btn" onClick={submitOrder}>
-          Confirm Pickup
-        </button>
-      </div>
-    </div>
-  );
-}
+    <button className="btn" onClick={submitOrder}>
+      Confirm Pickup
+    </button>
+  </div>
+</div>
