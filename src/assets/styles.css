@@ -233,3 +233,25 @@ body {
     grid-template-columns: 1fr;
   }
 }
+/* ===== FLOATING BUTTON ===== */
+
+.floating-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #1E40AF;
+  color: white;
+  border: none;
+  padding: 14px 22px;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  transition: 0.3s;
+  z-index: 1000;
+}
+
+.floating-btn:hover {
+  background: #1c3aa9;
+  transform: translateY(-2px);
+}
