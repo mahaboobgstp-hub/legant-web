@@ -1,32 +1,37 @@
 import { useState } from "react";
 import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
 
 export default function BookPickup() {
   const [name, setName] = useState("");
-  const [items, setItems] = useState(0);
-  const navigate = useNavigate();
+  const [phone, setPhone] = useState("");
+  const [items, setItems] = useState("");
 
   const submitOrder = async () => {
     await addDoc(collection(db, "orders"), {
       name,
+      phone,
       items,
       status: "Pickup Scheduled",
       createdAt: new Date()
     });
 
-    navigate("/summary");
+    alert("Order placed!");
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Book Pickup</h2>
+    <div className="container">
+      <div className="card">
+        <h2>Book Pickup</h2>
 
-      <input placeholder="Name" onChange={(e) => setName(e.target.value)} />
-      <input type="number" placeholder="Clothes Count" onChange={(e) => setItems(e.target.value)} />
+        <input placeholder="Name" onChange={e => setName(e.target.value)} /><br /><br />
+        <input placeholder="Phone" onChange={e => setPhone(e.target.value)} /><br /><br />
+        <input placeholder="Clothes Count" onChange={e => setItems(e.target.value)} /><br /><br />
 
-      <button onClick={submitOrder}>Confirm Pickup</button>
+        <button className="btn" onClick={submitOrder}>
+          Confirm Pickup
+        </button>
+      </div>
     </div>
   );
 }
