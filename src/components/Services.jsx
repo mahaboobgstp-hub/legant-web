@@ -1,20 +1,24 @@
-export default function Services() {
-  return (
-    <div className="services">
+import { useNavigate } from "react-router-dom";
 
-      <div className="service-item">
-        <img src="/images/truck.png" />
+export default function Services() {
+
+  const navigate = useNavigate();
+
+  return (
+    <div className="services" id="services">
+
+      <div className="service-item" onClick={() => navigate("/book")}>
+        <img src="/images/pickup.png" />
         <p>Free Pickup & Delivery</p>
       </div>
 
-      <div className="service-item">
+      <div className="service-item" onClick={() => navigate("/book")}>
         <img src="/images/iron.png" />
         <p>Quick & Reliable</p>
       </div>
 
-      <div className="service-item">
-        
-        <img src="/images/box.png" />
+      <div className="service-item" onClick={() => navigate("/book")}>
+        <img src="/images/delivery.png" />
         <p>Satisfaction Guaranteed</p>
       </div>
 
