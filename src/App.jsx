@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Book from "./pages/Book";
 import Track from "./pages/Track";
 import Login from "./pages/Login";
-
+import ServicesPage from "./pages/ServicesPage";
 import Navbar from "./components/Navbar";
 
 export default function App() {
@@ -18,6 +18,7 @@ export default function App() {
         <Route path="/book" element={<Book />} />
         <Route path="/track" element={<Track />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/services" element={<ServicesPage />} />
       </Routes>
 
     </BrowserRouter>
