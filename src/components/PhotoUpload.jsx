@@ -1,22 +1,38 @@
 import { useState } from "react";
-import { storage } from "../firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default function PhotoUpload({ setImageUrl }) {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const uploadImage = async () => {
-    if (!file) return;
+    if (!file) {
+      alert("Please select a file");
+      return;
+    }
 
     setLoading(true);
 
-    const storageRef = ref(storage, "orders/" + Date.now() + file.name);
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "legant_upload"); // ✅ your preset
 
-    await uploadBytes(storageRef, file);
-    const url = await getDownloadURL(storageRef);
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/de67mol0y/image/upload", // ✅ your cloud name
+      {
+        method: "POST",
+        body: data
+      }
+    );
 
-    setImageUrl(url);
+    const result = await res.json();
+
+    if (result.secure_url) {
+      setImageUrl(result.secure_url);
+    } else {
+      alert("Upload failed");
+      console.error(result);
+    }
+
     setLoading(false);
   };
 
@@ -25,7 +41,6 @@ export default function PhotoUpload({ setImageUrl }) {
       <input
         type="file"
         accept="image/*"
-        capture="environment"
         onChange={(e) => setFile(e.target.files[0])}
       />
 
