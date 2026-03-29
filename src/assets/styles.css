@@ -272,3 +272,51 @@ body {
   z-index: 0;
   pointer-events: none; /* 🔥 THIS FIXES CLICK ISSUE */
 }
+/* ===== PRICING ===== */
+
+.pricing-section {
+  padding: 60px 20px;
+  text-align: center;
+  background: #F8FAFC;
+}
+
+.pricing-title {
+  font-size: 30px;
+  color: #1E3A8A;
+  margin-bottom: 40px;
+}
+
+/* GRID */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* CARD */
+.pricing-card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.06);
+  transition: 0.3s;
+}
+
+.pricing-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+}
+
+.pricing-card img {
+  width: 80px;
+  margin-bottom: 15px;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1E40AF;
+}
+
