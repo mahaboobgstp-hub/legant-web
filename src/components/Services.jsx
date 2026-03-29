@@ -14,6 +14,7 @@ export default function Services() {
 
       <div className="service-item">
         <img src="/images/hanger.png" />
+        <img src="/images/box.png" />
         <p>Satisfaction Guaranteed</p>
       </div>
 
