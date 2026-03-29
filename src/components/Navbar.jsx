@@ -26,7 +26,7 @@ export default function Navbar() {
 
       <div className="nav-links">
         <Link to="/">Home</Link>
-        <a href="#services">Services</a>
+        <Link to="/services">Services</Link>
         <a href="#">Pricing</a>
         <Link to="/track">Track Order</Link>
         <a href="#">Contact</a>
