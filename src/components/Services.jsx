@@ -30,7 +30,7 @@ export default function Services() {
         </div>
 
         <div className="service-card" onClick={() => navigate("/book")}>
-          <img src="/images/delivery.png" />
+          <img src="/images/foldedclothes.png" />
           <h3>Quality & Satisfaction Guaranteed</h3>
           <p>
             We ensure reliable service, timely delivery, and complete
