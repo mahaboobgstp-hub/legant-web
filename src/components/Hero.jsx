@@ -10,7 +10,7 @@ export default function Hero() {
 
         <p>Pickup & Delivery Available!</p>
 
-        <button className="btn">Schedule a Pickup</button>
+        <button className="btn">Book Pickup</button>
       </div>
 
       <div className="hero-right">
