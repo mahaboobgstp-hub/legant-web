@@ -34,14 +34,19 @@ export default function Navbar() {
 
       {/* 🔥 CONDITIONAL BUTTON */}
       {user ? (
-        <button className="login-btn" onClick={handleLogout}>
-          Logout
-        </button>
-      ) : (
-        <Link to="/login">
-          <button className="login-btn">Login / Sign Up</button>
-        </Link>
-      )}
+  <div>
+    <span style={{ marginRight: 10 }}>
+      {user.phoneNumber || "User"}
+    </span>
+    <button className="login-btn" onClick={handleLogout}>
+      Logout
+    </button>
+  </div>
+) : (
+  <Link to="/login">
+    <button className="login-btn">Login / Sign Up</button>
+  </Link>
+)}
 
     </div>
   );
