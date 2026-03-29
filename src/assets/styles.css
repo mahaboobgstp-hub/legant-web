@@ -258,3 +258,17 @@ body {
   background: #1c3aa9;
   transform: translateY(-2px);
 }
+.hero-left {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-right {
+  position: relative;
+  z-index: 1;
+}
+
+.bg-icon {
+  z-index: 0;
+  pointer-events: none; /* 🔥 THIS FIXES CLICK ISSUE */
+}
