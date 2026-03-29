@@ -25,6 +25,7 @@ export default function PhotoUpload({ setImageUrl }) {
     );
 
     const result = await res.json();
+    console.log(result);
 
     if (result.secure_url) {
       setImageUrl(result.secure_url);
