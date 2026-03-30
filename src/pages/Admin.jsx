@@ -39,16 +39,15 @@ export default function Admin() {
     fetchOrders();
   };
 
-  // 🔥 AUTH CHECK
   useEffect(() => {
-    const auth = getAuth();
+  const auth = getAuth();
 
-    onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        window.location.href = "/login";
-      }
-    });
-  }, []);
+  onAuthStateChanged(auth, (user) => {
+    if (!user || user.email !== "admin@legant.com") {
+      window.location.href = "/";
+    }
+  });
+}, []);
 
   // 🔥 LOGOUT
   const logout = async () => {
