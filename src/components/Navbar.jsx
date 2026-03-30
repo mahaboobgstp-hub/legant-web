@@ -1,21 +1,28 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { auth } from "../firebase"; // your firebase config
+import { auth } from "../firebase";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 
 export default function Navbar() {
 
   const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsub = onAuthStateChanged(auth, (u) => {
+      setUser(u);
+
+      if (u?.email === "admin@legant.com") {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
     });
 
-    return () => unsubscribe();
+    return () => unsub();
   }, []);
 
-  const handleLogout = async () => {
+  const logout = async () => {
     await signOut(auth);
   };
 
@@ -29,26 +36,26 @@ export default function Navbar() {
         <Link to="/services">Services</Link>
         <Link to="/pricing">Pricing</Link>
         <Link to="/track">Track Order</Link>
-        <Link to="/contact" onClick={() => console.log("clicked contact")}>
-  Contact
-</Link>
+        <Link to="/contact">Contact</Link>
+
+        {/* 🔥 ADMIN LINKS */}
+        {isAdmin && (
+          <>
+            <Link to="/admin">Admin</Link>
+            <Link to="/agent">Agent</Link>
+          </>
+        )}
       </div>
 
-      {/* 🔥 CONDITIONAL BUTTON */}
       {user ? (
-  <div>
-    <span style={{ marginRight: 10 }}>
-      {user.phoneNumber || "User"}
-    </span>
-    <button className="login-btn" onClick={handleLogout}>
-      Logout
-    </button>
-  </div>
-) : (
-  <Link to="/login">
-    <button className="login-btn">Login / Sign Up</button>
-  </Link>
-)}
+        <button className="login-btn" onClick={logout}>
+          Logout
+        </button>
+      ) : (
+        <Link to="/login">
+          <button className="login-btn">Login</button>
+        </Link>
+      )}
 
     </div>
   );
