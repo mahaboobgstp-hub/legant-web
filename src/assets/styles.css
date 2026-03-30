@@ -400,27 +400,32 @@ body {
 }
 /* ===== TRACK PAGE ===== */
 
-.track-section {
+.track-wrapper {
   padding: 60px 20px;
   text-align: center;
 }
 
-.track-section h2 {
+/* INPUT BOX */
+.track-box {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  max-width: 400px;
+  margin: auto;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+.track-box h2 {
   color: #1E3A8A;
   margin-bottom: 10px;
 }
 
-.track-section p {
+.track-box p {
   color: #64748B;
   margin-bottom: 20px;
 }
 
-.track-section input {
-  max-width: 300px;
-  margin: 10px auto;
-  display: block;
-}
-
+/* RESULTS */
 .track-results {
   margin-top: 30px;
 }
@@ -436,14 +441,15 @@ body {
   text-align: left;
 }
 
-/* STATUS COLORS */
+/* STATUS */
 .status {
+  margin-left: 10px;
   padding: 4px 10px;
   border-radius: 20px;
   font-size: 12px;
-  margin-left: 5px;
 }
 
+/* COLORS */
 .status.pending {
   background: #FEF3C7;
   color: #92400E;
