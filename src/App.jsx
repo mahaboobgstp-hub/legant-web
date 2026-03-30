@@ -8,6 +8,8 @@ import ServicesPage from "./pages/ServicesPage";
 import Navbar from "./components/Navbar";
 import Pricing from "./pages/Pricing";
 import Contact from "./pages/Contact";
+import Admin from "./pages/Admin";
+import AgentUpdate from "./pages/AgentUpdate";
 
 export default function App() {
   return (
@@ -23,6 +25,8 @@ export default function App() {
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/agent" element={<AgentUpdate />} />
       </Routes>
 
     </BrowserRouter>
