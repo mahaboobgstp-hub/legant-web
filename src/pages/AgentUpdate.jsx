@@ -1,6 +1,8 @@
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useState } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import { useEffect } from "react";
 
 export default function AgentUpdate() {
 
