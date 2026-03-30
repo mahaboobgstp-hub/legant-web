@@ -528,3 +528,28 @@ nav, .navbar {
   position: relative;
   z-index: 999;
 }
+.services-preview {
+  padding: 40px 20px;
+  background: #F1F5F9;
+}
+
+.services-grid {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.service-card {
+  padding: 20px;
+  cursor: pointer;
+}
+
+.service-card img {
+  width: 60px;   /* 🔥 increase size */
+  margin-bottom: 10px;
+}
+
+.service-card h3 {
+  font-size: 16px;
+}
