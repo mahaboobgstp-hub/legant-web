@@ -45,6 +45,16 @@ Total: ₹${total}`;
     }
   };
 
+  useEffect(() => {
+  const auth = getAuth();
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user || user.email !== "admin@legant.com") {
+      window.location.href = "/";
+    }
+  });
+}, []);
+
   return (
     <div className="container">
 
