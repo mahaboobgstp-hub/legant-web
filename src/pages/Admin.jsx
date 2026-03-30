@@ -60,25 +60,13 @@ export default function Admin() {
     });
   }, []);
 
-  // 🔥 LOGOUT
-  const logout = async () => {
-    const auth = getAuth();
-    await signOut(auth);
-    window.location.href = "/login";
-  };
+ 
 
   return (
     <div className="container">
 
       {/* HEADER */}
-      <div style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center"
-      }}>
-        <h2>Admin Dashboard</h2>
-        <button className="btn" onClick={logout}>Logout</button>
-      </div>
+      <h2>Admin Dashboard</h2>
 
       {/* NO ORDERS */}
       {orders.length === 0 && (
