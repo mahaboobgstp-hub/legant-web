@@ -464,3 +464,63 @@ body {
   background: #DCFCE7;
   color: #166534;
 }
+/* ===== CONTACT PAGE ===== */
+
+.contact-section {
+  padding: 60px 20px;
+  text-align: center;
+  background: #F8FAFC;
+}
+
+.contact-section h2 {
+  color: #1E3A8A;
+  margin-bottom: 10px;
+}
+
+.contact-section p {
+  color: #64748B;
+  margin-bottom: 30px;
+}
+
+/* LAYOUT */
+.contact-container {
+  display: flex;
+  gap: 40px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+/* LEFT */
+.contact-info {
+  flex: 1;
+  text-align: left;
+}
+
+.contact-info h3 {
+  margin-bottom: 15px;
+}
+
+.contact-info p {
+  margin: 10px 0;
+}
+
+/* RIGHT */
+.contact-form {
+  flex: 1;
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.06);
+  text-align: left;
+}
+
+.contact-form h3 {
+  margin-bottom: 15px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .contact-container {
+    flex-direction: column;
+  }
+}
