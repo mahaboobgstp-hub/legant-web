@@ -524,3 +524,7 @@ body {
     flex-direction: column;
   }
 }
+nav, .navbar {
+  position: relative;
+  z-index: 999;
+}
