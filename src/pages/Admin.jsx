@@ -14,14 +14,19 @@ export default function Admin() {
 
   // 🔥 FETCH ORDERS
   const fetchOrders = async () => {
-    const snapshot = await getDocs(collection(db, "orders"));
+    try {
+      const snapshot = await getDocs(collection(db, "orders"));
 
-    const list = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    }));
+      const list = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
 
-    setOrders(list);
+      setOrders(list);
+
+    } catch (err) {
+      console.error("Error fetching orders:", err);
+    }
   };
 
   useEffect(() => {
@@ -30,24 +35,30 @@ export default function Admin() {
 
   // 🔥 UPDATE STATUS
   const updateStatus = async (id, newStatus) => {
-    const ref = doc(db, "orders", id);
+    try {
+      const ref = doc(db, "orders", id);
 
-    await updateDoc(ref, {
-      status: newStatus
-    });
+      await updateDoc(ref, {
+        status: newStatus
+      });
 
-    fetchOrders();
+      fetchOrders();
+
+    } catch (err) {
+      console.error("Error updating status:", err);
+    }
   };
 
+  // 🔥 PROTECT ADMIN ACCESS
   useEffect(() => {
-  const auth = getAuth();
+    const auth = getAuth();
 
-  onAuthStateChanged(auth, (user) => {
-    if (!user || user.email !== "admin@legant.com") {
-      window.location.href = "/";
-    }
-  });
-}, []);
+    onAuthStateChanged(auth, (user) => {
+      if (!user || user.email !== "admin@legant.com") {
+        window.location.href = "/";
+      }
+    });
+  }, []);
 
   // 🔥 LOGOUT
   const logout = async () => {
@@ -60,20 +71,33 @@ export default function Admin() {
     <div className="container">
 
       {/* HEADER */}
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center"
+      }}>
         <h2>Admin Dashboard</h2>
         <button className="btn" onClick={logout}>Logout</button>
       </div>
 
-      {/* ORDERS */}
+      {/* NO ORDERS */}
+      {orders.length === 0 && (
+        <p style={{ marginTop: 20 }}>No orders found</p>
+      )}
+
+      {/* ORDERS LIST */}
       {orders.map(order => (
-        <div className="card" key={order.id} style={{ marginTop: 20 }}>
+        <div
+          className="card"
+          key={order.id}
+          style={{ marginTop: 20 }}
+        >
 
-          <h3>{order.name}</h3>
+          {/* BASIC INFO */}
+          <h3>{order.name || "No Name"}</h3>
+          <p>📞 {order.phone || "No Phone"}</p>
 
-          <p>📞 {order.phone}</p>
-
-          {/* 🔥 ITEMS */}
+          {/* ITEMS */}
           <p>
             👕 Items:
             {order.items
@@ -81,21 +105,24 @@ export default function Admin() {
               : " Not added yet"}
           </p>
 
-          {/* 🔥 PRICING */}
+          {/* PRICING */}
           <p>
             💰 Total: ₹{order.pricing?.total || 0}
           </p>
 
-          {/* 🔥 AGENT */}
+          {/* AGENT */}
           <p>
             👨‍🔧 Agent: {order.agent?.name || "Not assigned"}
           </p>
 
-          {/* 🔥 STATUS */}
+          {/* STATUS */}
           <p>
             📌 Status:
-            <span className={`status ${order.status?.toLowerCase()}`} style={{ marginLeft: 10 }}>
-              {order.status}
+            <span
+              className={`status ${order.status?.toLowerCase()}`}
+              style={{ marginLeft: 10 }}
+            >
+              {order.status || "pending"}
             </span>
           </p>
 
@@ -103,8 +130,12 @@ export default function Admin() {
           {order.imageUrl && (
             <img
               src={order.imageUrl}
+              alt="clothes"
               width="150"
-              style={{ borderRadius: 8, marginTop: 10 }}
+              style={{
+                borderRadius: 8,
+                marginTop: 10
+              }}
             />
           )}
 
