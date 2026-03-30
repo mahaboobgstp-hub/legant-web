@@ -22,15 +22,14 @@ export default function Track() {
         where("phone", "==", phone)
       );
 
-      const querySnapshot = await getDocs(q);
+      const snapshot = await getDocs(q);
 
-      const results = [];
-
-      querySnapshot.forEach((doc) => {
-        results.push({ id: doc.id, ...doc.data() });
+      const data = [];
+      snapshot.forEach(doc => {
+        data.push({ id: doc.id, ...doc.data() });
       });
 
-      setOrders(results);
+      setOrders(data);
 
     } catch (err) {
       console.error(err);
@@ -41,38 +40,39 @@ export default function Track() {
   };
 
   return (
-    <div className="track-section">
+    <div className="track-wrapper">
 
-      <h2>Track Your Order</h2>
+      <div className="track-box">
 
-      <p>Enter your phone number to check your order status</p>
+        <h2>Track Your Order</h2>
 
-      {/* INPUT */}
-      <input
-        className="input"
-        placeholder="Enter phone number"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-      />
+        <p>Enter your phone number to check status</p>
 
-      <button className="btn" onClick={handleTrack}>
-        {loading ? "Checking..." : "Track Order"}
-      </button>
+        <input
+          className="input"
+          placeholder="Enter phone number"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+        />
+
+        <button className="btn" onClick={handleTrack}>
+          {loading ? "Checking..." : "Track Order"}
+        </button>
+
+      </div>
 
       {/* RESULTS */}
       <div className="track-results">
 
-        {orders.length === 0 && !loading && (
-          <p>No orders found</p>
-        )}
-
-        {orders.map((order) => (
+        {orders.map(order => (
           <div key={order.id} className="track-card">
 
-            <p><strong>Order ID:</strong> {order.id}</p>
-            <p><strong>Clothes:</strong> {order.clothes}</p>
+            <h4>Order ID: {order.id}</h4>
+
+            <p>Clothes: {order.clothes}</p>
+
             <p>
-              <strong>Status:</strong>{" "}
+              Status:
               <span className={`status ${order.status}`}>
                 {order.status}
               </span>
