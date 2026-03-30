@@ -28,7 +28,7 @@ const navigate = useNavigate();
       </div>
 
       {/* Background Icons */}
-      <img src="/images/truck.png" className="bg-icon truck" />
+     /* <img src="/images/truck.png" className="bg-icon truck" />
       <img src="/images/hanger.png" className="bg-icon hanger" />
       <img src="/images/box.png" className="bg-icon box" />
 
