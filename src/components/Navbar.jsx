@@ -29,7 +29,9 @@ export default function Navbar() {
         <Link to="/services">Services</Link>
         <Link to="/pricing">Pricing</Link>
         <Link to="/track">Track Order</Link>
-        <Link to="/contact">Contact</Link>
+        <Link to="/contact" onClick={() => console.log("clicked contact")}>
+  Contact
+</Link>
       </div>
 
       {/* 🔥 CONDITIONAL BUTTON */}
