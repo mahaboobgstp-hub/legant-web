@@ -1,20 +1,38 @@
+import { useNavigate } from "react-router-dom";
+
 export default function ServicesPreview() {
+
+  const navigate = useNavigate();
+
   return (
-    <div className="services">
+    <div className="services-preview">
 
-      <div className="service-item">
-        <img src="/images/pickup.png" />
-        <p>Free Pickup & Delivery</p>
-      </div>
+      <div className="services-grid">
 
-      <div className="service-item">
-        <img src="/images/iron.png" />
-        <p>Quick & Reliable</p>
-      </div>
+        <div
+          className="service-card"
+          onClick={() => navigate("/book")}
+        >
+          <img src="/images/truck.png" alt="pickup" />
+          <h3>Free Pickup & Delivery</h3>
+        </div>
 
-      <div className="service-item">
-        <img src="/images/foldedclothes.png" />
-        <p>Satisfaction Guaranteed</p>
+        <div
+          className="service-card"
+          onClick={() => navigate("/book")}
+        >
+          <img src="/images/ironing.png" alt="ironing" />
+          <h3>Quick & Reliable</h3>
+        </div>
+
+        <div
+          className="service-card"
+          onClick={() => navigate("/book")}
+        >
+          <img src="/images/box.png" alt="quality" />
+          <h3>Satisfaction Guaranteed</h3>
+        </div>
+
       </div>
 
     </div>
