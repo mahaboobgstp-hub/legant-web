@@ -29,7 +29,7 @@ export default function Navbar() {
         <Link to="/services">Services</Link>
         <Link to="/pricing">Pricing</Link>
         <Link to="/track">Track Order</Link>
-        <a href="#">Contact</a>
+        <Link to="/contact">Contact</Link>
       </div>
 
       {/* 🔥 CONDITIONAL BUTTON */}
