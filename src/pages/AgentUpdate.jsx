@@ -26,7 +26,15 @@ export default function AgentUpdate() {
         },
         status: "picked"
       });
+ // ✅ WHATSAPP MESSAGE
+    const message = `Order Updated ✅
+Shirts: ${shirt}
+Pants: ${pants}
+Total: ₹${total}`;
 
+    window.open(
+      `https://wa.me/91XXXXXXXXXX?text=${encodeURIComponent(message)}`
+    );
       alert("Updated successfully");
 
     } catch (err) {
