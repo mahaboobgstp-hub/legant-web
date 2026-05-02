@@ -80,14 +80,14 @@ body {
 
 .hero {
   position: relative;
-  min-height: auto;
+  min-height: 520px;
   padding: 60px 40px;
   background: linear-gradient(to right, #eef2ff, #f8fafc);
   overflow: hidden;
 }
 
 .hero-left {
-  max-width: 60%;   /* 🔥 restrict text area */
+  max-width: 55%;   /* 🔥 restrict text area */
   z-index: 2;
   position: relative;
 }
@@ -123,13 +123,14 @@ body {
 
 .hero-right {
   position: absolute;
-  top: 0;              /* 🔥 anchor to top */
-  right: 0;            /* 🔥 push fully right */
+  top: 60px;              /* 🔥 anchor to top */
+  right: 60px;            /* 🔥 push fully right */
+  z-index: 1;
  pointer-events: none;
 }
 
 .hero-right img {
-  height: 480px;       /* 🔥 control height instead of width */
+  height: 440px;       /* 🔥 control height instead of width */
   width: auto;
   display: block;
 }
