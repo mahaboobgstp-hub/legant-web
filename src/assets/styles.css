@@ -127,7 +127,6 @@ body {
   right: 0;            /* 🔥 push fully right */
   height: 100%;
   display: flex;
-  align-items: flex-end;  /* keep feet grounded */
   pointer-events: none;
 }
 
