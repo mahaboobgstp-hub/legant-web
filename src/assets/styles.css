@@ -87,7 +87,7 @@ body {
 }
 
 .hero-left {
-  max-width: 55%;   /* 🔥 restrict text area */
+  max-width: 25%;   /* 🔥 restrict text area */
   z-index: 2;
   position: relative;
 }
