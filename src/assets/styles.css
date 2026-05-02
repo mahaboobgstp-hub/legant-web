@@ -11,18 +11,18 @@ body {
 }
 
 .btn {
-  background: white;
-  color: #1E3A8A;
+  background: #1E40AF;
+  color: white;
   padding: 12px 20px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: 600;
+  font-weight: bold;
   transition: 0.3s;
 }
 
 .btn:hover {
-  background: #e2e8f0;
+  background: #1c3aa9;
 }
 
 .card {
@@ -80,12 +80,9 @@ body {
 
 .hero {
   position: relative;
-  min-height: 520px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  
   padding: 60px 40px;
-  background: linear-gradient(to right, #dbeafe, #eef2ff);
+  background: linear-gradient(to right, #eef2ff, #f8fafc);
   overflow: hidden;
 }
 
@@ -97,12 +94,12 @@ body {
   transform: translate(-50%, -50%);
   width: 600px;
   height: 600px;
-  background: linear-gradient(135deg, #1E3A8A, #2563EB);
-  color: white;
+  background: url("/images/logo-white.png") no-repeat center;
   background-size: contain;
   opacity: 0.05;   /* 🔥 watermark effect */
   z-index: 0;
 }
+
 .hero-left {
   max-width: 60%;   /* 🔥 restrict text area */
   z-index: 2;
@@ -115,12 +112,9 @@ body {
   line-height: 1.2;
   letter-spacing: -0.5px;
   max-width: 900px;  
-  color: white;
+  color: #1E3A8A;
 }
 
-.hero-left p {
-  color: rgba(255,255,255,0.85);
-}
 .hero-left p:first-of-type {
   font-size: 24px;
   font-weight: 500;
@@ -131,12 +125,10 @@ body {
 .hero-left p:last-of-type {
   font-size: 24px;              /* 🔥 MUCH bigger */
   font-weight: 700;
-  
+  color: #1E3A8A;
   margin-top: 20px;
 
-  background: rgba(255,255,255,0.15);
-  color: white;
-  backdrop-filter: blur(6px);
+  background: #E0ECFF;
   padding: 12px 18px;
   border-radius: 10px;
   display: inline-block;
@@ -145,9 +137,6 @@ body {
 }
 
 .hero-right {
-  width: 40%;
-  display: flex;
-  justify-content: flex-end;
   position: relative;
   top: 30px;              /* 🔥 anchor to top */
   right: 30px;            /* 🔥 push fully right */
@@ -159,9 +148,8 @@ body {
 }
 
 .hero-right img {
-  height: auto;       /* 🔥 control height instead of width */
-  width: 420px;
-  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
+  height: 440px;       /* 🔥 control height instead of width */
+  width: auto;
   display: block;
 }
 
@@ -185,16 +173,7 @@ body {
   font-weight: 700;
   font-size: 18px;
 }
-.hero-logo {
-  position: absolute;
-  top: 20px;
-  left: 40px;
-  z-index: 3;
-}
 
-.hero-logo img {
-  height: 40px;
-}
 /* ===== SERVICES ===== */
 
 
