@@ -86,6 +86,20 @@ body {
   overflow: hidden;
 }
 
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: url("/images/logo-white.png") no-repeat center;
+  background-size: contain;
+  opacity: 0.05;   /* 🔥 watermark effect */
+  z-index: 0;
+}
+
 .hero-left {
   max-width: 55%;   /* 🔥 restrict text area */
   z-index: 2;
