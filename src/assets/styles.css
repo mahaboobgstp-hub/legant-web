@@ -123,15 +123,19 @@ body {
 
 .hero-right {
   position: absolute;
-  top: 40px;        /* 🔥 control vertical position */
-  right: 60px;
-  z-index: 1;
+  top: 0;              /* 🔥 anchor to top */
+  right: 0;            /* 🔥 push fully right */
+  height: 100%;
+  display: flex;
+  align-items: flex-end;  /* keep feet grounded */
+  justify-content: flex-end;
+  pointer-events: none;
 }
 
 .hero-right img {
-  width: 480px;
-  height: auto;
-  display: block;
+  height: 520px;       /* 🔥 control height instead of width */
+  width: auto;
+  object-fit: contain;
 }
 /* ===== BACKGROUND ICONS ===== */
 
