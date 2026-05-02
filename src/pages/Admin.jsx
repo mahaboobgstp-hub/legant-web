@@ -1,107 +1,106 @@
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { db } from "../firebase";
-import {
-  collection,
-  getDocs,
-  updateDoc,
-  doc
-} from "firebase/firestore";
+import { supabase } from "../supabaseClient";
 
 export default function Admin() {
 
   const [orders, setOrders] = useState([]);
 
-  // 🔥 FETCH ORDERS
+  // ✅ FETCH ORDERS
   const fetchOrders = async () => {
-    try {
-      const snapshot = await getDocs(collection(db, "orders"));
+    const { data, error } = await supabase
+      .from("orders")
+      .select("*")
+      .order("created_at", { ascending: false });
 
-      const list = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-
-      setOrders(list);
-
-    } catch (err) {
-      console.error("Error fetching orders:", err);
+    if (error) {
+      console.error("Error fetching:", error);
+    } else {
+      setOrders(data);
     }
   };
 
+  // ✅ REALTIME LISTENER
   useEffect(() => {
     fetchOrders();
+
+    const channel = supabase
+      .channel("orders-changes")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "orders" },
+        () => fetchOrders()
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
-  // 🔥 UPDATE STATUS
-  const updateStatus = async (id, newStatus) => {
-    try {
-      const ref = doc(db, "orders", id);
+  // ✅ UPDATE STATUS
+  const updateStatus = async (id, status) => {
+    const { error } = await supabase
+      .from("orders")
+      .update({ status })
+      .eq("id", id);
 
-      await updateDoc(ref, {
-        status: newStatus
-      });
-
-      fetchOrders();
-
-    } catch (err) {
-      console.error("Error updating status:", err);
-    }
+    if (error) console.error(error);
   };
 
-  // 🔥 PROTECT ADMIN ACCESS
-  useEffect(() => {
-    const auth = getAuth();
+  // ✅ MARK READY (SEND FOR DELIVERY)
+  const markReady = async (id) => {
+    const { error } = await supabase
+      .from("orders")
+      .update({
+        status: "READY"
+      })
+      .eq("id", id);
 
-    onAuthStateChanged(auth, (user) => {
-      if (!user || user.email !== "admin@legant.com") {
-        window.location.href = "/";
-      }
-    });
-  }, []);
-
- 
+    if (error) console.error(error);
+  };
 
   return (
     <div className="container">
 
-      {/* HEADER */}
       <h2>Admin Dashboard</h2>
 
-      {/* NO ORDERS */}
       {orders.length === 0 && (
         <p style={{ marginTop: 20 }}>No orders found</p>
       )}
 
-      {/* ORDERS LIST */}
       {orders.map(order => (
         <div
-          className="card"
           key={order.id}
+          className="card"
           style={{ marginTop: 20 }}
         >
 
-          {/* BASIC INFO */}
-          <h3>{order.name || "No Name"}</h3>
-          <p>📞 {order.phone || "No Phone"}</p>
+          {/* CUSTOMER INFO */}
+          <h3>{order.customer_name}</h3>
+          <p>📞 {order.phone}</p>
+          <p>📍 {order.address}</p>
 
-          {/* ITEMS */}
+          {/* CLOTHES */}
+          <p>🧺 Total Clothes: {order.clothes_count}</p>
+
           <p>
             👕 Items:
-            {order.items
-              ? ` Shirts: ${order.items.shirt || 0}, Pants: ${order.items.pants || 0}`
-              : " Not added yet"}
+            Shirts: {order.shirts || 0} |
+            Pants: {order.pants || 0} |
+            Others: {order.others || 0}
           </p>
 
-          {/* PRICING */}
+          {/* SERVICES */}
           <p>
-            💰 Total: ₹{order.pricing?.total || 0}
+            🧼 Services:
+            {order.washing && " Washing"}
+            {order.ironing && " Ironing"}
+            {order.drycleaning && " Dry Cleaning"}
+            {order.stain && " Stain Removal"}
           </p>
 
-          {/* AGENT */}
-          <p>
-            👨‍🔧 Agent: {order.agent?.name || "Not assigned"}
-          </p>
+          {/* BILL */}
+          <p>💰 Bill: ₹{order.bill_amount || 0}</p>
 
           {/* STATUS */}
           <p>
@@ -110,48 +109,57 @@ export default function Admin() {
               className={`status ${order.status?.toLowerCase()}`}
               style={{ marginLeft: 10 }}
             >
-              {order.status || "pending"}
+              {order.status}
             </span>
           </p>
 
-          {/* IMAGE */}
-          {order.imageUrl && (
-            <img
-              src={order.imageUrl}
-              alt="clothes"
-              width="150"
-              style={{
-                borderRadius: 8,
-                marginTop: 10
-              }}
-            />
-          )}
+          {/* PAYMENT */}
+          <p>
+            💳 Payment: {order.payment_status}
+          </p>
 
-          {/* ACTION BUTTONS */}
+          {/* ACTIONS */}
           <div style={{ marginTop: 15 }}>
 
-            <button
-              className="btn"
-              onClick={() => updateStatus(order.id, "pending")}
-            >
-              Pending
-            </button>
+            {order.status === "BOOKED" && (
+              <button
+                className="btn"
+                onClick={() => updateStatus(order.id, "ACCEPTED")}
+              >
+                Accept
+              </button>
+            )}
 
-            <button
-              className="btn"
-              onClick={() => updateStatus(order.id, "picked")}
-              style={{ marginLeft: 10 }}
-            >
-              Picked
-            </button>
+            {order.status === "RECEIVED" && (
+              <button
+                className="btn"
+                onClick={() => markReady(order.id)}
+              >
+                Ready to Deliver
+              </button>
+            )}
 
-            <button
-              className="btn"
-              onClick={() => updateStatus(order.id, "delivered")}
-              style={{ marginLeft: 10 }}
-            >
-              Delivered
-            </button>
+            {order.status === "READY" && (
+              <button
+                className="btn"
+                onClick={() =>
+                  updateStatus(order.id, "OUT_FOR_DELIVERY")
+                }
+              >
+                Send to Agent
+              </button>
+            )}
+
+            {order.status === "OUT_FOR_DELIVERY" && (
+              <button
+                className="btn"
+                onClick={() =>
+                  updateStatus(order.id, "DELIVERED")
+                }
+              >
+                Mark Delivered
+              </button>
+            )}
 
           </div>
 
