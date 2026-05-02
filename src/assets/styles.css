@@ -1,4 +1,5 @@
 body {
+  padding-top: 80px; /* adjust based on navbar height */
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
   background: #F8FAFC;
@@ -543,6 +544,10 @@ body {
 
 .contact-form h3 {
   margin-bottom: 15px;
+}
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px; /* navbar height */
 }
 
 /* MOBILE */
