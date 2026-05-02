@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background: #F8FAFC;
 }
 
@@ -107,8 +107,9 @@ body {
 }
 
 .hero-left h1 {
-  font-size: 42px;
-  line-height: 1.1;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
   letter-spacing: -0.5px;
   max-width: 900px;  
   color: #1E3A8A;
@@ -136,13 +137,13 @@ body {
 }
 
 .hero-right {
-  position: absolute;
+  position: relative;
   top: 30px;              /* 🔥 anchor to top */
   right: 30px;            /* 🔥 push fully right */
   width: auto;
   height: auto;
   display: block;
-  z-index: 1;
+  z-index: 2;
  pointer-events: none;
 }
 
@@ -150,6 +151,27 @@ body {
   height: 440px;       /* 🔥 control height instead of width */
   width: auto;
   display: block;
+}
+
+.hero-sub {
+  font-size: 17px;
+  color: #475569;
+  margin-top: 15px;
+  letter-spacing: 0.5px;
+}
+.hero-phone {
+  background: #E0E7FF;
+  padding: 12px 18px;
+  display: inline-block;
+  border-radius: 10px;
+  margin: 20px 0;
+  font-weight: 500;
+  color: #1E40AF;
+}
+
+.hero-phone span {
+  font-weight: 700;
+  font-size: 18px;
 }
 
 /* ===== SERVICES ===== */
