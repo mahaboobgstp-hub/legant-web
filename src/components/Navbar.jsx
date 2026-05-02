@@ -35,7 +35,7 @@ export default function Navbar() {
         <Link to="/">Home</Link>
         <a href="#services">Services</a>
         <Link to="/pricing">Pricing</Link>
-        <Link to="/track">Track Order</Link>
+        
         <Link to="/contact">Contact</Link>
 
         {/* 🔥 ADMIN LINKS */}
