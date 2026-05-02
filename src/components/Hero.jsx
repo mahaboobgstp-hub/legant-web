@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo-white.png";
 
 
 export default function Hero() {
@@ -8,9 +7,6 @@ export default function Hero() {
 
   return (
     <div className="hero">
-      <div className="hero-logo">
-    <img src={logo} />
-  </div>
 
       <div className="hero-left">
 
