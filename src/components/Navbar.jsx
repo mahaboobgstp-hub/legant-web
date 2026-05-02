@@ -33,7 +33,7 @@ export default function Navbar() {
 
       <div className="nav-links">
         <Link to="/">Home</Link>
-        <Link to="/services">Services</Link>
+        <a href="#services">Services</a>
         <Link to="/pricing">Pricing</Link>
         <Link to="/track">Track Order</Link>
         <Link to="/contact">Contact</Link>
