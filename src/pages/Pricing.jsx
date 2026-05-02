@@ -66,14 +66,17 @@ export default function Pricing() {
 
   const service = services[activeService];
 
-  return (
-    <div className="pricing-container">
+    return (
+  <div className="pricing-container">
 
-      {/* LEFT SIDE */}
-      <div className="left-panel">
+    {/* LEFT SIDE (Services + Items) */}
+    <div className="left-panel">
 
-        <h2 className="logo">CleanUP</h2>
+      <h2 className="logo">CleanUP</h2>
 
+      <div className="content-row">
+
+        {/* SERVICES */}
         <div className="service-buttons">
           {Object.keys(services).map((key) => (
             <button
@@ -86,13 +89,12 @@ export default function Pricing() {
           ))}
         </div>
 
+        {/* ITEMS (NOW CENTER) */}
         <div className="price-list">
           {service.items.map((item, i) => (
             <div key={i} className="price-item">
 
-              {item.img && (
-                <img src={item.img} alt={item.name} />
-              )}
+              {item.img && <img src={item.img} alt={item.name} />}
 
               <span>{item.name}</span>
               <span>{item.price}</span>
@@ -101,20 +103,23 @@ export default function Pricing() {
           ))}
         </div>
 
-        <button
-          className="checkout-btn"
-          onClick={() => navigate("/book")}
-        >
-          Schedule Pickup
-        </button>
-
       </div>
 
-      {/* RIGHT SIDE IMAGE */}
-      <div className="right-panel">
-        <img src={service.image} alt={service.title} />
-      </div>
+      {/* CTA */}
+      <button
+        className="checkout-btn"
+        onClick={() => navigate("/book")}
+      >
+        Schedule Pickup
+      </button>
 
     </div>
-  );
+
+    {/* RIGHT IMAGE */}
+    <div className="right-panel">
+      <img src={service.image} alt={service.title} />
+    </div>
+
+  </div>
+);
 }
