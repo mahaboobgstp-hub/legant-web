@@ -32,7 +32,7 @@ export default function ServicesPreview() {
         </div>
 
         <div className="service-card" onClick={() => navigate("/book")}>
-          <img src="/images/saree.png" />
+          <img src="/images/sareerolling.png" />
           <h3>Saree Polishing</h3>
         </div>
 
