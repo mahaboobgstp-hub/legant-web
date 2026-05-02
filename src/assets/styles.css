@@ -137,11 +137,7 @@ body {
 
 /* ===== SERVICES ===== */
 
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr); /* adjust based on number of services */
-  gap: 20px;
-}
+
 .services {
   display: flex;
   justify-content: space-around;
