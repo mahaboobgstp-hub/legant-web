@@ -80,17 +80,16 @@ body {
 
 .hero {
   position: relative;
-  min-height: 520px;
-  display: block;
-  justify-content: space-between;
-  align-items: center;
+  min-height: 550px;
   padding: 60px 40px;
   background: linear-gradient(to right, #eef2ff, #f8fafc);
   overflow: hidden;
 }
 
 .hero-left {
-  max-width: 100%;
+  max-width: 60%;   /* 🔥 restrict text area */
+  z-index: 2;
+  position: relative;
 }
 
 .hero-left h1 {
@@ -102,30 +101,41 @@ body {
 }
 
 .hero-left p:first-of-type {
-  font-size: 20px;        /* 🔥 bigger */
+  font-size: 20px;
   font-weight: 500;
-  color: #334155;         /* darker + cleaner */
-  letter-spacing: 0.3px;
+  color: #334155;
+  margin-top: 15px;
 }
 
 .hero-left p:last-of-type {
-  background: #EFF6FF;
+  font-size: 24px;              /* 🔥 MUCH bigger */
+  font-weight: 700;
+  color: #1E3A8A;
+  margin-top: 20px;
+
+  background: #E0ECFF;
+  padding: 12px 18px;
+  border-radius: 10px;
   display: inline-block;
-  padding: 8px 14px;
-  border-radius: 8px;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 .hero-right {
   position: absolute;
-  top: 20px;        /* 🔥 move to top */
-  right: 60px;      /* adjust spacing from edge */
-  transform: none;  /* 🔥 remove vertical centering */
-  z-index: 1;
+  top: 0;              /* 🔥 anchor to top */
+  right: 0;            /* 🔥 push fully right */
+  height: 100%;
+  display: flex;
+  align-items: flex-end;  /* keep feet grounded */
+  justify-content: flex-end;
+  pointer-events: none;
 }
 
 .hero-right img {
-  width: 480px;     /* 🔥 slightly bigger = premium look */
-  max-width: none;
+  height: 520px;       /* 🔥 control height instead of width */
+  width: auto;
+  object-fit: contain;
 }
 
 /* ===== BACKGROUND ICONS ===== */
