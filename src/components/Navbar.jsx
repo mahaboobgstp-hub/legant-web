@@ -29,7 +29,7 @@ export default function Navbar() {
   return (
     <div className="navbar">
 
-      <h2 className="logo">Elegant</h2>
+      <h1 className="logo">ElegantLaundry Services</h1>
 
       <div className="nav-links">
         <Link to="/">Home</Link>
