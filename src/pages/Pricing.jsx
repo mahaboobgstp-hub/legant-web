@@ -18,7 +18,7 @@ export default function Pricing() {
 
     iron: {
       title: "Iron",
-      image: "/images/iron.png",
+      image: "/images/ironing.png",
       items: [
         { name: "Shirt", price: "₹10", img: "/images/shirt.png" },
         { name: "T-Shirt", price: "₹8", img: "/images/tshirt.png" },
@@ -57,7 +57,7 @@ export default function Pricing() {
 
     saree: {
       title: "Saree Care",
-      image: "/images/saree-care.png",
+      image: "/images/sareerolling.png",
       items: [
         { name: "Saree Rolling", price: "₹80" },
         { name: "Saree Polishing", price: "₹120" }
