@@ -11,27 +11,27 @@ export default function ServicesPreview() {
 
       <div className="services-grid">
 
-        <div className="service-card" onClick={() => navigate("/pricing", { state: { service: "washing" } })}>
+        <div className="service-card" onClick={() => navigate("/pricing", { state: { service: "Wash" } })}>
           <img src="/images/wash.png" />
           <h3>Washing</h3>
         </div>
 
-        <div className="service-card" onClick={() => navigate("/pricing", { state: { service: "drycleaning" } })}>
+        <div className="service-card" onClick={() => navigate("/pricing", { state: { service: "Dry Clean" } })}>
           <img src="/images/dryclean.png" />
           <h3>Dry Cleaning</h3>
         </div>
 
-        <div className="service-card" onClick={() => navigate("/pricing", { state: { service: "ironing" } })}>
+        <div className="service-card" onClick={() => navigate("/pricing", { state: { service: "Iron" } })}>
           <img src="/images/ironing.png" />
           <h3>Ironing</h3>
         </div>
 
-        <div className="service-card" onClick={() => navigate("/pricing", { state: { service: "stain removal" } })}>
+        <div className="service-card" onClick={() => navigate("/pricing", { state: { service: "Stain Removal" } })}>
           <img src="/images/stain.png" />
           <h3>Stain Removal</h3>
         </div>
 
-        <div className="service-card" onClick={() => navigate("/pricing", { state: { service: "saree rolling" } })}>
+        <div className="service-card" onClick={() => navigate("/pricing", { state: { service: "Saree Care" } })}>
           <img src="/images/sareerolling.png" />
           <h3>Saree Polishing & Rolling</h3>
         </div>
