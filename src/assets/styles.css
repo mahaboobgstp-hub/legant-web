@@ -123,8 +123,8 @@ body {
 
 .hero-right {
   position: absolute;
-  top: 60px;              /* 🔥 anchor to top */
-  right: 60px;            /* 🔥 push fully right */
+  top: 30px;              /* 🔥 anchor to top */
+  right: 30px;            /* 🔥 push fully right */
   width: auto;
   height: auto;
   display: block;
