@@ -5,7 +5,7 @@ export default function ServicesPreview() {
   const navigate = useNavigate();
 
   return (
-    <div className="services-preview">
+    <div className="services-preview" id="services">
 
       <h2>Our Services</h2>
 
