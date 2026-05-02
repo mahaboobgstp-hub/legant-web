@@ -6,6 +6,9 @@ export default function Hero() {
 
   return (
     <div className="hero">
+      <div className="hero-logo">
+    <img src="/logo-white.png" alt="Elegant Laundry" />
+  </div>
 
       <div className="hero-left">
 
