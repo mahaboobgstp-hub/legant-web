@@ -10,9 +10,9 @@ export default function Hero() {
       <div className="hero-left">
 
         <h1>
-          Premium Laundry & Dry Clean <br />
-          Services at Your Doorstep
-        </h1>
+        Premium <span>Laundry & Dry Clean</span><br />
+        Services at Your Doorstep
+       </h1>
 
         <p className="hero-sub">
           Washing • Dry Cleaning • Ironing • Stain Removal • Saree Care
