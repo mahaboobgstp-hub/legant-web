@@ -1,63 +1,117 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Pricing() {
-
   const navigate = useNavigate();
+  const [activeService, setActiveService] = useState("wash");
 
-  const items = [
-    { name: "Shirt", price: "₹10", img: "/images/shirt.png" },
-    { name: "T-Shirt", price: "₹8", img: "/images/tshirt.png" },
-    { name: "Pants / Trousers", price: "₹12", img: "/images/pants.png" },
-    { name: "Jeans", price: "₹15", img: "/images/jeans.png" },
-    { name: "Saree", price: "₹20", img: "/images/saree.png" },
-    { name: "Bedsheet", price: "₹25", img: "/images/bedsheet.png" },
+  const services = {
+    wash: {
+      title: "Wash",
+      image: "/images/wash.png",
+      items: [
+        { name: "Washing (Per Kg)", price: "₹70 / kg" }
+      ]
+    },
 
-    // 🔥 Traditional Wear (Premium)
-    { name: "Bridal Lehenga / Ghagra Choli", price: "₹40", img: "/images/gagra.png" },
-    { name: "Salwar Kameez Set (Women)", price: "₹20", img: "/images/salwar.png" },
-    { name: "Men's Traditional Kurta Set", price: "₹25", img: "/images/mensalwar.png" },
-    { name: "Silk Dhoti (Pattu Panche)", price: "₹30", img: "/images/panches.png" }
-  ];
+    iron: {
+      title: "Iron",
+      image: "/images/iron.png",
+      items: [
+        { name: "Shirt", price: "₹10", img: "/images/shirt.png" },
+        { name: "T-Shirt", price: "₹8", img: "/images/tshirt.png" },
+        { name: "Pants / Trousers", price: "₹12", img: "/images/pants.png" },
+        { name: "Jeans", price: "₹15", img: "/images/jeans.png" },
+        { name: "Saree", price: "₹20", img: "/images/saree.png" },
+        { name: "Bedsheet", price: "₹25", img: "/images/bedsheet.png" },
+        { name: "Bridal Lehenga", price: "₹40", img: "/images/gagra.png" },
+        { name: "Salwar Kameez", price: "₹20", img: "/images/salwar.png" },
+        { name: "Kurta Set", price: "₹25", img: "/images/mensalwar.png" },
+        { name: "Silk Dhoti", price: "₹30", img: "/images/panches.png" }
+      ]
+    },
+
+    dry: {
+      title: "Dry Clean",
+      image: "/images/dryclean.png",
+      items: [
+        { name: "Saree", price: "₹150" },
+        { name: "Blazer", price: "₹200" },
+        { name: "Suit", price: "₹250" },
+        { name: "Jacket", price: "₹180" },
+        { name: "Lehenga", price: "₹300" }
+      ]
+    },
+
+    stain: {
+      title: "Stain Removal",
+      image: "/images/stain.png",
+      items: [
+        { name: "Light Stain", price: "₹30" },
+        { name: "Medium Stain", price: "₹60" },
+        { name: "Heavy Stain", price: "₹100" }
+      ]
+    },
+
+    saree: {
+      title: "Saree Care",
+      image: "/images/saree-care.png",
+      items: [
+        { name: "Saree Rolling", price: "₹80" },
+        { name: "Saree Polishing", price: "₹120" }
+      ]
+    }
+  };
+
+  const service = services[activeService];
 
   return (
-    <div className="pricing-section">
+    <div className="pricing-container">
 
-      {/* TITLE */}
-      <h2 className="pricing-title">Transparent Pricing</h2>
+      {/* LEFT SIDE */}
+      <div className="left-panel">
 
-      <p className="pricing-subtitle">
-        Simple, affordable, and premium ironing service pricing per item.
-        No hidden charges. Pay only for what you give.
-      </p>
+        <h2 className="logo">CleanUP</h2>
 
-      {/* GRID */}
-      <div className="pricing-grid">
+        <div className="service-buttons">
+          {Object.keys(services).map((key) => (
+            <button
+              key={key}
+              className={activeService === key ? "active" : ""}
+              onClick={() => setActiveService(key)}
+            >
+              {services[key].title}
+            </button>
+          ))}
+        </div>
 
-        {items.map((item, i) => (
-          <div key={i} className="pricing-card">
+        <div className="price-list">
+          {service.items.map((item, i) => (
+            <div key={i} className="price-item">
 
-            <img src={item.img} alt={item.name} />
+              {item.img && (
+                <img src={item.img} alt={item.name} />
+              )}
 
-            <h3>{item.name}</h3>
+              <span>{item.name}</span>
+              <span>{item.price}</span>
 
-            <p className="price">{item.price} / piece</p>
-
-          </div>
-        ))}
-
-      </div>
-
-      {/* CTA */}
-      <div className="pricing-cta">
-        <h3>Ready to get started?</h3>
-        <p>Schedule your pickup now and experience hassle-free ironing service.</p>
+            </div>
+          ))}
+        </div>
 
         <button
-          className="btn"
+          className="checkout-btn"
           onClick={() => navigate("/book")}
         >
           Schedule Pickup
         </button>
+
+      </div>
+
+      {/* RIGHT SIDE IMAGE */}
+      <div className="right-panel">
+        <img src={service.image} alt={service.title} />
       </div>
 
     </div>
