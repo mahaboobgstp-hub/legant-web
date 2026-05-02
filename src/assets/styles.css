@@ -80,7 +80,7 @@ body {
 
 .hero {
   position: relative;
-  min-height: 520px;
+  
   padding: 60px 40px;
   background: linear-gradient(to right, #eef2ff, #f8fafc);
   overflow: hidden;
