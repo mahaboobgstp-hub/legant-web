@@ -128,7 +128,6 @@ body {
   height: 100%;
   display: flex;
   align-items: flex-end;  /* keep feet grounded */
-  justify-content: flex-end;
   pointer-events: none;
 }
 
