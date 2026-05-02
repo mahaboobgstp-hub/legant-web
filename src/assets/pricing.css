@@ -19,7 +19,15 @@
   margin-bottom: 20px;
 }
 
+/* NEW ROW LAYOUT */
+.content-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+/* SERVICES COLUMN */
 .service-buttons {
+  width: 40%;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -40,6 +48,7 @@
 }
 
 .price-list {
+  width: 60%;
   margin: 20px 0;
 }
 
@@ -48,9 +57,10 @@
   align-items: center;
   justify-content: space-between;
   background: white;
-  padding: 10px;
+  padding: 12px;
   border-radius: 10px;
   margin-bottom: 10px;
+  gap: 10px;
 }
 
 .price-item img {
