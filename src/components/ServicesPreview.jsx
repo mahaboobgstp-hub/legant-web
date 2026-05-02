@@ -26,12 +26,12 @@ export default function ServicesPreview() {
           <h3>Ironing</h3>
         </div>
 
-        <div className="service-card" onClick={() => navigate(""/pricing", { state: { service: "stain removal" } })}>
+        <div className="service-card" onClick={() => navigate("/pricing", { state: { service: "stain removal" } })}>
           <img src="/images/stain.png" />
           <h3>Stain Removal</h3>
         </div>
 
-        <div className="service-card" onClick={() => navigate(""/pricing", { state: { service: "saree rolling" } })}>
+        <div className="service-card" onClick={() => navigate("/pricing", { state: { service: "saree rolling" } })}>
           <img src="/images/sareerolling.png" />
           <h3>Saree Polishing & Rolling</h3>
         </div>
