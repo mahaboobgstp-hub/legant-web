@@ -133,8 +133,8 @@ body {
 }
 
 .hero-right img {
-  height: auto;       /* 🔥 control height instead of width */
-  width: 420px;
+  height: 420px;       /* 🔥 control height instead of width */
+  width: auto;
   display: block;
 }
 
