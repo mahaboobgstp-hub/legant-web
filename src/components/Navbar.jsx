@@ -30,7 +30,7 @@ export default function Navbar() {
     <div className="navbar">
 
      <div className="logo">
-  <img src="/logo-white.png" alt="logo" className="logo-img" />
+  <img src="/images/logo-white.png" alt="logo" className="logo-img" />
   <span>Elegant Laundry Services</span>
 </div>
 
