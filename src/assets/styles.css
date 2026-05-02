@@ -11,18 +11,18 @@ body {
 }
 
 .btn {
-  background: #1E40AF;
-  color: white;
+  background: white;
+  color: #1E3A8A;
   padding: 12px 20px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
   transition: 0.3s;
 }
 
 .btn:hover {
-  background: #1c3aa9;
+  background: #e2e8f0;
 }
 
 .card {
@@ -97,28 +97,11 @@ body {
   transform: translate(-50%, -50%);
   width: 600px;
   height: 600px;
-  background: url(logo.png) no-repeat center;
+  background: linear-gradient(135deg, #1E3A8A, #2563EB);
+  color: white;
   background-size: contain;
   opacity: 0.05;   /* 🔥 watermark effect */
   z-index: 0;
-}
-.hero::after {
-  content: "";
-  position: absolute;
-
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  width: 500px;
-  height: 500px;
-
-  background: url("/images/logo-white.png") no-repeat center;
-  background-size: contain;
-
-  opacity: 0.12;      /* 🔥 increase visibility (try 0.1–0.18) */
-  z-index: 0;
-  pointer-events: none;
 }
 .hero-left {
   max-width: 60%;   /* 🔥 restrict text area */
@@ -132,9 +115,12 @@ body {
   line-height: 1.2;
   letter-spacing: -0.5px;
   max-width: 900px;  
-  color: #1E3A8A;
+  color: white;
 }
 
+.hero-left p {
+  color: rgba(255,255,255,0.85);
+}
 .hero-left p:first-of-type {
   font-size: 24px;
   font-weight: 500;
@@ -145,10 +131,12 @@ body {
 .hero-left p:last-of-type {
   font-size: 24px;              /* 🔥 MUCH bigger */
   font-weight: 700;
-  color: #1E3A8A;
+  
   margin-top: 20px;
 
-  background: #E0ECFF;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  backdrop-filter: blur(6px);
   padding: 12px 18px;
   border-radius: 10px;
   display: inline-block;
@@ -173,7 +161,7 @@ body {
 .hero-right img {
   height: auto;       /* 🔥 control height instead of width */
   width: 420px;
-  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.1));
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));
   display: block;
 }
 
@@ -197,7 +185,16 @@ body {
   font-weight: 700;
   font-size: 18px;
 }
+.hero-logo {
+  position: absolute;
+  top: 20px;
+  left: 40px;
+  z-index: 3;
+}
 
+.hero-logo img {
+  height: 40px;
+}
 /* ===== SERVICES ===== */
 
 
