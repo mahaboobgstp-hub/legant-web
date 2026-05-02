@@ -7,6 +7,21 @@ export default function Pricing() {
   const [activeService, setActiveService] = useState("wash");
   const location = useLocation();
   const selectedService = location.state?.service;
+  useEffect(() => {
+  if (selectedService) {
+    const map = {
+      washing: "wash",
+      ironing: "iron",
+      drycleaning: "dry",
+      stain: "stain",
+      saree: "saree"
+    };
+
+    if (map[selectedService]) {
+      setActiveService(map[selectedService]);
+    }
+  }
+}, [selectedService]);
 
   const services = {
     wash: {
