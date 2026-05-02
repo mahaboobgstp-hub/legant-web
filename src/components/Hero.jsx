@@ -20,7 +20,7 @@ export default function Hero() {
 
         {/* 🔥 PHONE = BUSINESS DRIVER */}
         <p className="hero-phone">
-          📞 Call / WhatsApp: <span>+91 98765 43210</span>
+          Call or WhatsApp: <span>+91 98765 43210</span>
         </p>
 
         <div className="hero-buttons">
