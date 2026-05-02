@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { db } from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
+
+import { supabase } from "../supabaseClient";
 import PhotoUpload from "../components/PhotoUpload";
 
 export default function BookPickup() {
@@ -27,7 +27,20 @@ export default function BookPickup() {
     alert("Error placing order");
   }
 };
+const handleSubmit = async () => {
+  const { error } = await supabase
+    .from("orders")
+    .insert([
+      {
+        customer_name: name,
+        phone,
+        address,
+        clothes_count: clothesCount
+      }
+    ]);
 
+  if (!error) alert("Pickup booked!");
+};
     return (
     <div className="container">
   <div className="card">
