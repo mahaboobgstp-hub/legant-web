@@ -11,27 +11,27 @@ export default function ServicesPreview() {
 
       <div className="services-grid">
 
-        <div className="service-card" onClick={() => navigate("/book")}>
+        <div className="service-card" onClick={() => navigate("/pricing", { state: { service: "washing" } })}>
           <img src="/images/wash.png" />
           <h3>Washing</h3>
         </div>
 
-        <div className="service-card" onClick={() => navigate("/book")}>
+        <div className="service-card" onClick={() => navigate("/pricing", { state: { service: "drycleaning" } })}>
           <img src="/images/dryclean.png" />
           <h3>Dry Cleaning</h3>
         </div>
 
-        <div className="service-card" onClick={() => navigate("/book")}>
+        <div className="service-card" onClick={() => navigate("/pricing", { state: { service: "ironing" } })}>
           <img src="/images/ironing.png" />
           <h3>Ironing</h3>
         </div>
 
-        <div className="service-card" onClick={() => navigate("/book")}>
+        <div className="service-card" onClick={() => navigate(""/pricing", { state: { service: "stain removal" } })}>
           <img src="/images/stain.png" />
           <h3>Stain Removal</h3>
         </div>
 
-        <div className="service-card" onClick={() => navigate("/book")}>
+        <div className="service-card" onClick={() => navigate(""/pricing", { state: { service: "saree rolling" } })}>
           <img src="/images/sareerolling.png" />
           <h3>Saree Polishing & Rolling</h3>
         </div>
