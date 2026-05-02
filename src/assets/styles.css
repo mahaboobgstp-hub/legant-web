@@ -86,20 +86,6 @@ body {
   overflow: hidden;
 }
 
-.hero::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 60%;
-  transform: translate(-50%, -50%);
-  width: 600px;
-  height: 600px;
-  background: url("/images/logo-white.png") no-repeat center;
-  background-size: contain;
-  opacity: 0.05;   /* 🔥 watermark effect */
-  z-index: 0;
-}
-
 .hero-left {
   max-width: 55%;   /* 🔥 restrict text area */
   z-index: 2;
@@ -137,8 +123,8 @@ body {
 
 .hero-right {
   position: absolute;
-  top: 30px;              /* 🔥 anchor to top */
-  right: 30px;            /* 🔥 push fully right */
+  top: 60px;              /* 🔥 anchor to top */
+  right: 60px;            /* 🔥 push fully right */
   width: auto;
   height: auto;
   display: block;
@@ -147,8 +133,8 @@ body {
 }
 
 .hero-right img {
-  height: 440px;       /* 🔥 control height instead of width */
-  width: auto;
+  height: auto;       /* 🔥 control height instead of width */
+  width: 420px;
   display: block;
 }
 
@@ -302,6 +288,11 @@ body {
 .hero-left {
   position: relative;
   z-index: 2;
+}
+
+.hero-right {
+  position: relative;
+  z-index: 1;
 }
 
 .bg-icon {
