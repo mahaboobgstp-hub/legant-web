@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../assets/pricing.css";
 
 export default function Pricing() {
   const navigate = useNavigate();
