@@ -4,7 +4,17 @@ import "../assets/pricing.css";
 
 export default function Pricing() {
   const navigate = useNavigate();
-  const [activeService, setActiveService] = useState("wash", "Iron", "Dry Clean", "Stain Removal", "Saree Care");
+  const [activeService, setActiveService] = useState(() => {
+  const map = {
+    washing: "wash",
+    ironing: "iron",
+    drycleaning: "dry",
+    stain: "stain",
+    saree: "saree"
+  };
+
+  return map[location.state?.service] || "wash";
+});
   const location = useLocation();
   const selectedService = location.state?.service;
   const services = {
