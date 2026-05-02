@@ -97,7 +97,7 @@ body {
   transform: translate(-50%, -50%);
   width: 600px;
   height: 600px;
-  background: url("/images/logo-white.png") no-repeat center;
+  background: url(logo.png) no-repeat center;
   background-size: contain;
   opacity: 0.05;   /* 🔥 watermark effect */
   z-index: 0;
