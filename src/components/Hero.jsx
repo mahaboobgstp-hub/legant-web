@@ -29,12 +29,7 @@ export default function Hero() {
             Book Pickup
           </button>
 
-          <a href="tel:+919876543210">
-            <button className="btn-outline">
-              Call Now
-            </button>
-          </a>
-
+        
         </div>
 
       </div>
