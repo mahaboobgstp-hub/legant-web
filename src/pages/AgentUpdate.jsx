@@ -1,87 +1,79 @@
-import { useState, useEffect } from "react";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
+import { supabase } from "../supabaseClient";
 
-export default function AgentUpdate() {
+export default function Agent() {
+  const [orders, setOrders] = useState([]);
 
-  const [orderId, setOrderId] = useState("");
-  const [shirt, setShirt] = useState(0);
-  const [pants, setPants] = useState(0);
-  const [agentName, setAgentName] = useState("");
-
-  // 🔥 PROTECT PAGE
   useEffect(() => {
-    const auth = getAuth();
+    fetchOrders();
 
-    onAuthStateChanged(auth, (user) => {
-      if (!user || user.email !== "admin@legant.com") {
-        window.location.href = "/";
-      }
-    });
+    const channel = supabase
+      .channel("orders")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "orders" },
+        () => fetchOrders()
+      )
+      .subscribe();
+
+    return () => supabase.removeChannel(channel);
   }, []);
 
-  const handleUpdate = async () => {
+  const fetchOrders = async () => {
+    const { data } = await supabase.from("orders").select("*");
+    setOrders(data);
+  };
 
-    const ironing = shirt * 10 + pants * 12;
-    const pickup = 20;
-    const delivery = 20;
-    const total = ironing + pickup + delivery;
+  const accept = async (id) => {
+    await supabase
+      .from("orders")
+      .update({ status: "ACCEPTED" })
+      .eq("id", id);
+  };
 
-    try {
-      await updateDoc(doc(db, "orders", orderId), {
-        items: { shirt, pants },
-        pricing: { ironing, pickup, delivery, total },
-        agent: {
-          name: agentName,
-          pickupTime: new Date().toLocaleTimeString()
-        },
-        status: "picked"
-      });
+  const received = async (id) => {
+    await supabase
+      .from("orders")
+      .update({
+        status: "RECEIVED",
+        shirts: 5,
+        pants: 3,
+        washing: true,
+        ironing: true,
+        bill_amount: 350
+      })
+      .eq("id", id);
+  };
 
-      alert("Order updated successfully");
-
-    } catch (err) {
-      console.error(err);
-      alert("Error updating order");
-    }
+  const delivered = async (id) => {
+    await supabase
+      .from("orders")
+      .update({ status: "DELIVERED" })
+      .eq("id", id);
   };
 
   return (
-    <div className="container">
+    <div>
+      <h2>Agent Panel</h2>
 
-      <h2>Agent Order Update</h2>
+      {orders.map(order => (
+        <div key={order.id} className="card">
+          <p>{order.customer_name}</p>
+          <p>Status: {order.status}</p>
 
-      <input
-        className="input"
-        placeholder="Enter Order ID"
-        onChange={(e) => setOrderId(e.target.value)}
-      />
+          {order.status === "BOOKED" && (
+            <button onClick={() => accept(order.id)}>Accept</button>
+          )}
 
-      <input
-        className="input"
-        type="number"
-        placeholder="Number of Shirts"
-        onChange={(e) => setShirt(Number(e.target.value))}
-      />
+          {order.status === "ACCEPTED" && (
+            <button onClick={() => received(order.id)}>Received</button>
+          )}
 
-      <input
-        className="input"
-        type="number"
-        placeholder="Number of Pants"
-        onChange={(e) => setPants(Number(e.target.value))}
-      />
-
-      <input
-        className="input"
-        placeholder="Agent Name"
-        onChange={(e) => setAgentName(e.target.value)}
-      />
-
-      <button className="btn" onClick={handleUpdate}>
-        Update Order
-      </button>
-
+          {order.status === "OUT_FOR_DELIVERY" && (
+            <button onClick={() => delivered(order.id)}>Delivered</button>
+          )}
+        </div>
+      ))}
     </div>
   );
 }
