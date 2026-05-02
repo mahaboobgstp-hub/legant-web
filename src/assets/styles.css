@@ -125,13 +125,16 @@ body {
   position: absolute;
   top: 60px;              /* 🔥 anchor to top */
   right: 60px;            /* 🔥 push fully right */
+  width: auto;
+  height: auto;
+  display: block;
   z-index: 1;
  pointer-events: none;
 }
 
 .hero-right img {
-  height: 440px;       /* 🔥 control height instead of width */
-  width: auto;
+  height: auto;       /* 🔥 control height instead of width */
+  width: 420px;
   display: block;
 }
 
