@@ -80,7 +80,7 @@ body {
 
 .hero {
   position: relative;
-  min-height: 500px;
+  min-height: 520px;
   display: block;
   justify-content: space-between;
   align-items: center;
@@ -101,23 +101,30 @@ body {
   color: #1E3A8A;
 }
 
-.hero-left p {
-  margin: 15px 0;
-   max-width: 600px;
-  color: #64748B;
-  font-size: 18px;
+.hero-left p:first-of-type {
+  font-size: 20px;        /* 🔥 bigger */
+  font-weight: 500;
+  color: #334155;         /* darker + cleaner */
+  letter-spacing: 0.3px;
+}
+
+.hero-left p:last-of-type {
+  background: #EFF6FF;
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 8px;
 }
 
 .hero-right {
   position: absolute;
-  top: 50%;              /* center vertically */
-  right: 40px;
-  transform: translateY(-50%);
+  top: 20px;        /* 🔥 move to top */
+  right: 60px;      /* adjust spacing from edge */
+  transform: none;  /* 🔥 remove vertical centering */
   z-index: 1;
 }
 
 .hero-right img {
-  width: 420px;
+  width: 480px;     /* 🔥 slightly bigger = premium look */
   max-width: none;
 }
 
