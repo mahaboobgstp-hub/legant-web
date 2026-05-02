@@ -6,6 +6,15 @@ export default function Home() {
     <>
       <Hero />
       <ServicesPreview />
+
+      <div style={{ textAlign: "center", padding: "40px" }}>
+  <h2>Why Choose Elegant?</h2>
+
+  <p>✔ Free Pickup & Delivery</p>
+  <p>✔ Affordable Pricing</p>
+  <p>✔ Trusted Professionals</p>
+  <p>✔ Fast Turnaround</p>
+</div>
     </>
   );
 }
