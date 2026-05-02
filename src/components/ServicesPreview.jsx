@@ -33,9 +33,14 @@ export default function ServicesPreview() {
 
         <div className="service-card" onClick={() => navigate("/book")}>
           <img src="/images/sareerolling.png" />
-          <h3>Saree Polishing</h3>
+          <h3>Saree Polishing & Rolling</h3>
         </div>
-
+        
+       <div className="service-card" onClick={() => navigate("/book")}>
+          <img src="/images/pickup.png" />
+          <h3>Free Pickup & Delivery</h3>
+        </div>
+        
       </div>
 
     </div>
