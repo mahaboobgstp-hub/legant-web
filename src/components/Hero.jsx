@@ -1,5 +1,4 @@
-
-  import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Hero() {
 
@@ -8,28 +7,25 @@ export default function Hero() {
   return (
     <div className="hero">
 
-      {/* LEFT */}
       <div className="hero-left">
 
         <h1>
-          Premium Ironing Service <br />
-          at Your Doorstep
+          Premium Laundry & Dry Clean <br />
+          Services at Your Doorstep
         </h1>
 
         <p className="hero-sub">
-          Pickup & Delivery Available | Fast & Reliable
+          Washing • Dry Cleaning • Ironing • Stain Removal • Saree Care
         </p>
 
-        {/* 🔥 PHONE CTA */}
+        {/* 🔥 PHONE = BUSINESS DRIVER */}
         <p className="hero-phone">
-          📞 Call Now: <span>+91 98765 43210</span>
+          📞 Call / WhatsApp: <span>+91 98765 43210</span>
         </p>
 
         <div className="hero-buttons">
-          <button
-            className="btn"
-            onClick={() => navigate("/book")}
-          >
+
+          <button className="btn" onClick={() => navigate("/book")}>
             Book Pickup
           </button>
 
@@ -38,13 +34,13 @@ export default function Hero() {
               Call Now
             </button>
           </a>
+
         </div>
 
       </div>
 
-      {/* RIGHT IMAGE */}
       <div className="hero-right">
-        <img src="/images/delivery-boy.png" alt="delivery" />
+        <img src="/images/delivery-boy.png" />
       </div>
 
     </div>
