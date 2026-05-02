@@ -80,9 +80,12 @@ body {
 
 .hero {
   position: relative;
-  
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 60px 40px;
-  background: linear-gradient(to right, #eef2ff, #f8fafc);
+  background: linear-gradient(to right, #dbeafe, #eef2ff);
   overflow: hidden;
 }
 
@@ -99,7 +102,24 @@ body {
   opacity: 0.05;   /* 🔥 watermark effect */
   z-index: 0;
 }
+.hero::after {
+  content: "";
+  position: absolute;
 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 500px;
+  height: 500px;
+
+  background: url("/images/logo-white.png") no-repeat center;
+  background-size: contain;
+
+  opacity: 0.12;      /* 🔥 increase visibility (try 0.1–0.18) */
+  z-index: 0;
+  pointer-events: none;
+}
 .hero-left {
   max-width: 60%;   /* 🔥 restrict text area */
   z-index: 2;
@@ -137,6 +157,9 @@ body {
 }
 
 .hero-right {
+  width: 40%;
+  display: flex;
+  justify-content: flex-end;
   position: relative;
   top: 30px;              /* 🔥 anchor to top */
   right: 30px;            /* 🔥 push fully right */
@@ -148,8 +171,9 @@ body {
 }
 
 .hero-right img {
-  height: 440px;       /* 🔥 control height instead of width */
-  width: auto;
+  height: auto;       /* 🔥 control height instead of width */
+  width: 420px;
+  filter: drop-shadow(0 15px 25px rgba(0,0,0,0.1));
   display: block;
 }
 
