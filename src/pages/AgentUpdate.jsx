@@ -57,23 +57,73 @@ export default function Agent() {
       <h2>Agent Panel</h2>
 
       {orders.map(order => (
-        <div key={order.id} className="card">
-          <p>{order.customer_name}</p>
-          <p>Status: {order.status}</p>
+  <div key={order.id} className="card">
 
-          {order.status === "BOOKED" && (
-            <button onClick={() => accept(order.id)}>Accept</button>
-          )}
+    <h3>{order.customer_name}</h3>
+    <p>Status: {order.status}</p>
 
-          {order.status === "ACCEPTED" && (
-            <button onClick={() => received(order.id)}>Received</button>
-          )}
+    {/* ACCEPT BUTTON */}
+    {order.status === "BOOKED" && (
+      <button onClick={() => acceptOrder(order)}>
+        Accept
+      </button>
+    )}
 
-          {order.status === "OUT_FOR_DELIVERY" && (
-            <button onClick={() => delivered(order.id)}>Delivered</button>
-          )}
-        </div>
-      ))}
+    {/* 🔥 SHOW FORM WHEN ACCEPTED */}
+    {order.status === "ACCEPTED" && (
+      <div style={{ marginTop: 15 }}>
+
+        <input
+          type="number"
+          placeholder="Shirts"
+          onChange={(e) => setShirts(Number(e.target.value))}
+        />
+
+        <input
+          type="number"
+          placeholder="Pants"
+          onChange={(e) => setPants(Number(e.target.value))}
+        />
+
+        <input
+          type="number"
+          placeholder="Others"
+          onChange={(e) => setOthers(Number(e.target.value))}
+        />
+
+        <h4>Services</h4>
+
+        <label>
+          <input type="checkbox" onChange={(e) => setWashing(e.target.checked)} />
+          Washing
+        </label>
+
+        <label>
+          <input type="checkbox" onChange={(e) => setIroning(e.target.checked)} />
+          Ironing
+        </label>
+
+        <label>
+          <input type="checkbox" onChange={(e) => setDrycleaning(e.target.checked)} />
+          Dry Cleaning
+        </label>
+
+        <label>
+          <input type="checkbox" onChange={(e) => setStain(e.target.checked)} />
+          Stain Removal
+        </label>
+
+        <h3>Bill: ₹{bill}</h3>
+
+        <button onClick={() => markReceived(order.id)}>
+          Confirm Received
+        </button>
+
+      </div>
+    )}
+
+  </div>
+))}
     </div>
   );
 }
