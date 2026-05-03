@@ -4,22 +4,14 @@ import { supabase } from "../supabaseClient";
 export default function Agent() {
 
   const [orders, setOrders] = useState([]);
+  const [activeOrderId, setActiveOrderId] = useState(null);
 
-  // ✅ INPUT STATES (FIXED)
-  const [shirts, setShirts] = useState(0);
-  const [pants, setPants] = useState(0);
-  const [others, setOthers] = useState(0);
+  // 🔥 services per active order
+  const [services, setServices] = useState([]);
 
-  const [washing, setWashing] = useState(false);
-  const [ironing, setIroning] = useState(false);
-  const [drycleaning, setDrycleaning] = useState(false);
-  const [stain, setStain] = useState(false);
-
-  const [bill, setBill] = useState(0);
-
-  // 🔹 FETCH
+  // 🔹 FETCH ORDERS
   const fetchOrders = async () => {
-    const { data } = await supabase.from("orders").select("*");
+    const { data } = await supabase.from("orders").select("*").order("created_at", { ascending: false });
     setOrders(data);
   };
 
@@ -38,111 +30,138 @@ export default function Agent() {
     return () => supabase.removeChannel(channel);
   }, []);
 
-  // ✅ ACCEPT FIXED
-  const accept = async (id) => {
+  // ✅ ACCEPT ORDER
+  const acceptOrder = async (id) => {
     await supabase
       .from("orders")
       .update({ status: "ACCEPTED" })
       .eq("id", id);
+
+    setActiveOrderId(id);
+    setServices([]); // reset form
   };
 
-  // ✅ BILL CALCULATION
-  useEffect(() => {
-    let total = 0;
+  // 🔹 ADD SERVICE ROW
+  const addServiceRow = (type) => {
+    setServices(prev => [
+      ...prev,
+      {
+        service: type,
+        item: "",
+        quantity: 0,
+        unit: type === "washing" ? "kg" : "piece",
+        price: 0,
+        total: 0
+      }
+    ]);
+  };
 
-    const count = shirts + pants + others;
+  // 🔹 UPDATE SERVICE ROW
+  const updateService = (index, field, value) => {
+    const updated = [...services];
+    updated[index][field] = value;
 
-    if (washing) total += count * 10;
-    if (ironing) total += count * 5;
-    if (drycleaning) total += count * 20;
-    if (stain) total += count * 15;
+    updated[index].total =
+      (updated[index].quantity || 0) * (updated[index].price || 0);
 
-    setBill(total);
-  }, [shirts, pants, others, washing, ironing, drycleaning, stain]);
+    setServices(updated);
+  };
 
-  // ✅ RECEIVED (FIXED)
+  // 🔹 TOTAL BILL
+  const totalBill = services.reduce((sum, s) => sum + s.total, 0);
+
+  // ✅ MARK RECEIVED
   const markReceived = async (id) => {
+    if (services.length === 0) {
+      alert("Please add at least one service");
+      return;
+    }
+
     await supabase
       .from("orders")
       .update({
         status: "RECEIVED",
-        shirts,
-        pants,
-        others,
-        washing,
-        ironing,
-        drycleaning,
-        stain,
-        bill_amount: bill
+        services_data: services,
+        bill_amount: totalBill
       })
       .eq("id", id);
 
-    alert("Order received!");
+    alert("Order received successfully!");
+
+    setActiveOrderId(null);
+    setServices([]);
     fetchOrders();
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Agent Panel</h2>
 
       {orders.map(order => (
-        <div key={order.id} className="card">
+        <div key={order.id} className="card" style={{ marginTop: 20 }}>
 
           <h3>{order.customer_name}</h3>
           <p>Status: {order.status}</p>
 
-          {/* ✅ ACCEPT */}
+          {/* ACCEPT */}
           {order.status === "BOOKED" && (
-            <button onClick={() => accept(order.id)}>
+            <button onClick={() => acceptOrder(order.id)}>
               Accept
             </button>
           )}
 
-          {/* ✅ FORM AFTER ACCEPT */}
-          {order.status === "ACCEPTED" && (
-            <div style={{ marginTop: 15 }}>
+          {/* 🔥 FORM */}
+          {(order.status === "ACCEPTED" || activeOrderId === order.id) && (
+            <div style={{ marginTop: 20 }}>
 
-              <input
-                type="number"
-                placeholder="Shirts"
-                onChange={(e) => setShirts(Number(e.target.value))}
-              />
+              <h4>Add Services</h4>
 
-              <input
-                type="number"
-                placeholder="Pants"
-                onChange={(e) => setPants(Number(e.target.value))}
-              />
+              <button onClick={() => addServiceRow("washing")}>+ Washing</button>
+              <button onClick={() => addServiceRow("ironing")}>+ Ironing</button>
+              <button onClick={() => addServiceRow("drycleaning")}>+ Dry Cleaning</button>
+              <button onClick={() => addServiceRow("stain")}>+ Stain Removal</button>
 
-              <input
-                type="number"
-                placeholder="Others"
-                onChange={(e) => setOthers(Number(e.target.value))}
-              />
+              {/* SERVICE ROWS */}
+              {services.map((s, i) => (
+                <div key={i} style={{
+                  marginTop: 15,
+                  padding: 10,
+                  border: "1px solid #ddd",
+                  borderRadius: 8
+                }}>
 
-              <h4>Services</h4>
+                  <p><b>{s.service.toUpperCase()}</b></p>
 
-              <label>
-                <input type="checkbox" onChange={(e) => setWashing(e.target.checked)} />
-                Washing
-              </label>
+                  <select
+                    onChange={(e) => updateService(i, "item", e.target.value)}
+                  >
+                    <option>Select Item</option>
+                    <option>Shirt</option>
+                    <option>Pant</option>
+                    <option>Saree</option>
+                    <option>Blanket</option>
+                  </select>
 
-              <label>
-                <input type="checkbox" onChange={(e) => setIroning(e.target.checked)} />
-                Ironing
-              </label>
+                  <input
+                    type="number"
+                    placeholder={`Quantity (${s.unit})`}
+                    onChange={(e) => updateService(i, "quantity", Number(e.target.value))}
+                  />
 
-              <label>
-                <input type="checkbox" onChange={(e) => setDrycleaning(e.target.checked)} />
-                Dry Cleaning
-              </label>
+                  <input
+                    type="number"
+                    placeholder="Price"
+                    onChange={(e) => updateService(i, "price", Number(e.target.value))}
+                  />
 
-              <label>
-                <input type="checkbox" onChange={(e) => setStain(e.target.checked)} />
-                Stain Removal
-              </label>
+                  <p>Total: ₹{s.total}</p>
 
-              <h3>Bill: ₹{bill}</h3>
+                </div>
+              ))}
+
+              <h3 style={{ marginTop: 20 }}>
+                Total Bill: ₹{totalBill}
+              </h3>
 
               <button onClick={() => markReceived(order.id)}>
                 Confirm Received
@@ -153,6 +172,7 @@ export default function Agent() {
 
         </div>
       ))}
+
     </div>
   );
 }
