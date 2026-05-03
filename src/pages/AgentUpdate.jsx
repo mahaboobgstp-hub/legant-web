@@ -51,7 +51,25 @@ export default function Agent() {
       .update({ status: "DELIVERED" })
       .eq("id", id);
   };
+const markReceived = async (id) => {
+  await supabase
+    .from("orders")
+    .update({
+      status: "RECEIVED",
+      shirts,
+      pants,
+      others,
+      washing,
+      ironing,
+      drycleaning,
+      stain,
+      bill_amount: bill
+    })
+    .eq("id", id);
 
+  alert("Order received!");
+  fetchOrders();
+};
   return (
     <div>
       <h2>Agent Panel</h2>
