@@ -61,6 +61,12 @@ export default function Admin() {
 
   return (
     <div className="container">
+      <div style={{
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  marginBottom: 20
+}}>
 
       <h2>Admin Dashboard</h2>
 
@@ -74,6 +80,7 @@ export default function Admin() {
 >
   Price Master
 </button>
+      </div>
       
       {orders.map(order => (
         <div
