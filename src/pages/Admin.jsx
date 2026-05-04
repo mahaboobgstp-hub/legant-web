@@ -68,6 +68,13 @@ export default function Admin() {
         <p style={{ marginTop: 20 }}>No orders found</p>
       )}
 
+      <button
+  className="btn"
+  onClick={() => window.location.href = "/price-master"}
+>
+  Price Master
+</button>
+      
       {orders.map(order => (
         <div
           key={order.id}
