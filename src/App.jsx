@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Book from "./pages/Book";
 
 import Login from "./pages/Login";
-
+import PriceMaster from "./pages/PriceMaster";
 import Navbar from "./components/Navbar";
 import Pricing from "./pages/Pricing";
 import Contact from "./pages/Contact";
@@ -22,7 +22,7 @@ export default function App() {
         <Route path="/book" element={<Book />} />
        
         <Route path="/login" element={<Login />} />
-        
+        <Route path="/price-master" element={<PriceMaster />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/admin" element={<Admin />} />
