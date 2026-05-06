@@ -120,6 +120,7 @@ export default function Agent() {
               <button onClick={() => addServiceRow("ironing")}>+ Ironing</button>
               <button onClick={() => addServiceRow("drycleaning")}>+ Dry Cleaning</button>
               <button onClick={() => addServiceRow("stain")}>+ Stain Removal</button>
+              <button onClick={() => addServiceRow("saree")}>+ Saree Rolling</button>
 
               {/* SERVICE ROWS */}
               {services.map((s, i) => (
