@@ -90,7 +90,13 @@ export default function Admin() {
         >
 
           {/* CUSTOMER INFO */}
-          <h3>{order.customer_name}</h3>
+          <h3>
+  {order.order_number}
+</h3>
+
+<h3>
+  {order.customer_name}
+</h3>
           <p>📞 {order.phone}</p>
           <p>📍 {order.address}</p>
 
