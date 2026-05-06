@@ -15,20 +15,18 @@ export default function Agent() {
   saree: []
 });
 
-  const isMobile =
-  /Android|iPhone/i.test(
-    navigator.userAgent
-  );
+  const sendWhatsApp = (
+  phone,
+  message
+) => {
 
-const baseUrl = isMobile
-  ? "https://wa.me/"
-  : "https://web.whatsapp.com/send";
+  const cleanPhone = `91${phone}`;
 
-const url = isMobile
-  ? `${baseUrl}${cleanPhone}?text=${encodeURIComponent(message)}`
-  : `${baseUrl}?phone=${cleanPhone}&text=${encodeURIComponent(message)}`;
+  const url =
+    `https://web.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(message)}`;
 
-window.location.href = url;
+  window.location.href = url;
+};
 
   // 🔹 FETCH ORDERS
   const fetchOrders = async () => {
