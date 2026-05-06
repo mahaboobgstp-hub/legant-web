@@ -180,52 +180,33 @@ console.log("PRICE FETCH:", data, error);
     position: "sticky",
     top: 0,
     zIndex: 100,
-    background: "#ffffff",
-    borderRadius: 10,
-    padding: "16px 20px",
-    marginBottom: 10,
-    boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+    background: "#fff",
+    borderRadius: 12,
+    padding: "14px 18px",
+    marginBottom: 12
   }}
 >
+
   <div
     style={{
-      display: "flex",
-      alignItems: "center",
-      gap: 25,
+      display: "grid",
+      gridTemplateColumns: "170px 220px 140px 120px 100px 120px 120px",
+      gap: 10,
+      fontSize: 13,
       fontWeight: 700,
-      fontSize: 14,
       color: "#0d2c91",
-      textTransform: "uppercase"
+      textTransform: "uppercase",
+      whiteSpace: "nowrap"
     }}
   >
 
-    <div style={{ minWidth: 150 }}>
-      Order ID
-    </div>
-
-    <div style={{ minWidth: 220 }}>
-      Customer
-    </div>
-
-    <div style={{ minWidth: 120 }}>
-      Status
-    </div>
-
-    <div style={{ minWidth: 120 }}>
-      Clothes
-    </div>
-
-    <div style={{ minWidth: 80 }}>
-      Bill
-    </div>
-
-    <div style={{ minWidth: 120 }}>
-      Payment
-    </div>
-
-    <div style={{ marginLeft: "auto" }}>
-      Action
-    </div>
+    <div>Order ID</div>
+    <div>Customer</div>
+    <div>Status</div>
+    <div>Clothes</div>
+    <div>Bill</div>
+    <div>Payment</div>
+    <div>Action</div>
 
   </div>
 </div>
@@ -234,97 +215,116 @@ console.log("PRICE FETCH:", data, error);
         <div key={order.id} className="card" style={{ marginTop: 20 }}>
 
           <div
+  key={order.id}
   style={{
-    display: "flex",
-    alignItems: "center",
-    gap: 25,
-    flexWrap: "wrap",
-    padding: "14px 0",
-    borderBottom: "1px solid #e5e5e5",
-    fontSize: 15,
-    fontWeight: 500
+    background: "#fff",
+    borderRadius: 12,
+    padding: "14px 18px",
+    marginBottom: 12,
+    overflowX: "auto"
   }}
 >
 
-  {/* ORDER NUMBER */}
   <div
     style={{
-      fontWeight: 700,
-      fontSize: 18,
-      color: "#0d2c91",
-      minWidth: 150
+      display: "grid",
+      gridTemplateColumns: "170px 220px 140px 120px 100px 120px 120px",
+      alignItems: "center",
+      gap: 10,
+      fontSize: 14,
+      whiteSpace: "nowrap"
     }}
   >
-    {order.order_number}
-  </div>
 
-  {/* CUSTOMER */}
-  <div
-    style={{
-      fontWeight: 600,
-      textTransform: "uppercase",
-      minWidth: 220
-    }}
-  >
-    {order.customer_name}
-  </div>
-
-  {/* STATUS */}
-  <div style={{ minWidth: 120 }}>
-    {order.status}
-  </div>
-
-  {/* CLOTHES */}
-  <div style={{ minWidth: 120 }}>
-    {order.clothes_count || 0} Clothes
-  </div>
-
-  {/* BILL */}
-  <div style={{ minWidth: 80 }}>
-    ₹{order.bill_amount || 0}
-  </div>
-
-  {/* PAYMENT */}
-  <div style={{ minWidth: 120 }}>
-    {order.payment_status || "PENDING"}
-  </div>
-
-  {/* ACCEPT BUTTON */}
-  {order.status === "BOOKED" && (
-    <button
-      onClick={() => acceptOrder(order.id)}
+    {/* ORDER ID */}
+    <div
       style={{
-        marginLeft: "auto",
-        background: "#0d2c91",
-        color: "white",
-        border: "none",
-        padding: "10px 18px",
-        borderRadius: 8,
-        cursor: "pointer",
-        fontWeight: 600
+        fontWeight: 700,
+        color: "#0d2c91"
       }}
     >
-      Accept
-    </button>
-  )}
+      {order.order_number}
+    </div>
 
-  {/* DELIVERED BUTTON */}
-  {order.status === "OUT_FOR_DELIVERY" && (
-    <button
-      onClick={() => markDelivered(order.id)}
+    {/* CUSTOMER */}
+    <div
       style={{
-        marginLeft: "auto",
-        background: "green",
-        color: "white",
-        border: "none",
-        padding: "10px 18px",
-        borderRadius: 8,
-        cursor: "pointer",
-        fontWeight: 600
+        fontWeight: 600,
+        overflow: "hidden",
+        textOverflow: "ellipsis"
       }}
     >
-      Delivered
-    </button>
+      {order.customer_name}
+    </div>
+
+    {/* STATUS */}
+    <div>
+      {order.status}
+    </div>
+
+    {/* CLOTHES */}
+    <div>
+      {order.clothes_count || 0} Clothes
+    </div>
+
+    {/* BILL */}
+    <div>
+      ₹{order.bill_amount || 0}
+    </div>
+
+    {/* PAYMENT */}
+    <div>
+      {order.payment_status || "PENDING"}
+    </div>
+
+    {/* ACTION */}
+    <div>
+      {order.status === "BOOKED" && (
+        <button
+          onClick={() => acceptOrder(order.id)}
+          style={{
+            background: "#0d2c91",
+            color: "#fff",
+            border: "none",
+            padding: "8px 16px",
+            borderRadius: 8,
+            cursor: "pointer",
+            fontSize: 13,
+            fontWeight: 600
+          }}
+        >
+          Accept
+        </button>
+      )}
+
+      {order.status === "OUT_FOR_DELIVERY" && (
+        <button
+          onClick={() => markDelivered(order.id)}
+          style={{
+            background: "green",
+            color: "#fff",
+            border: "none",
+            padding: "8px 16px",
+            borderRadius: 8,
+            cursor: "pointer",
+            fontSize: 13,
+            fontWeight: 600
+          }}
+        >
+          Delivered
+        </button>
+      )}
+    </div>
+
+  </div>
+
+  {/* ACCEPTED ORDER FORM */}
+  {(order.status === "ACCEPTED" || activeOrderId === order.id) && (
+    <div style={{ marginTop: 20 }}>
+
+      {/* YOUR EXISTING SERVICES UI HERE */}
+
+    </div>
   )}
 
 </div>
