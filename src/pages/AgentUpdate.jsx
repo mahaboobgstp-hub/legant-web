@@ -198,6 +198,16 @@ Thank you.`
   window.open(url, "_blank");
 };
 
+  sendWhatsApp(
+  order.phone,
+
+  `Hello ${order.customer_name},
+
+Your order ${order.order_number} has been delivered successfully.
+
+Thank you for choosing Elegant Laundry.`
+);
+
   return (
     <div className="container">
       <h2>Agent Panel</h2>
