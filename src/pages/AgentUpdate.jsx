@@ -20,15 +20,16 @@ export default function Agent() {
   message
 ) => {
 
-  const cleanPhone =
-    `91${phone}`;
+  const cleanPhone = `91${phone}`;
 
   const url =
-    `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+    `https://web.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(message)}`;
 
-  window.open(url, "_blank");
+  window.open(
+    url,
+    "whatsappWindow"
+  );
 };
-
   // 🔹 FETCH ORDERS
   const fetchOrders = async () => {
     const { data } = await supabase.from("orders").select("*").order("created_at", { ascending: false });
@@ -176,18 +177,24 @@ console.log("PRICE FETCH:", data, error);
 
   // ✅ WHATSAPP
   sendWhatsApp(
-    order.phone,
+  order.phone,
 
-    `Hello ${order.customer_name},
+`✨ *Elegant Laundry Services*
 
-Elegant Laundry has received your order ${order.order_number}.
+Hello *${order.customer_name}* 👋
 
-Clothes Count: ${order.clothes_count}
+✅ Your order has been received successfully.
 
-Total Bill: ₹${totalBill}
+🧾 *Order ID:* ${order.order_number}
 
-Thank you.`
-  );
+👕 *Clothes Count:* ${order.clothes_count}
+
+💰 *Total Bill:* ₹${totalBill}
+
+📍 Status: *RECEIVED*
+
+Thank you for choosing Elegant Laundry 🙏`
+);
 
   alert("Order received successfully!");
 
