@@ -7,7 +7,13 @@ export default function Agent() {
   const [activeOrderId, setActiveOrderId] = useState(null);
 
   // 🔥 services per active order
-  const [services, setServices] = useState([]);
+  const [services, setServices] = useState({
+  washing: [],
+  ironing: [],
+  drycleaning: [],
+  stain: [],
+  saree: []
+});
 
   // 🔹 FETCH ORDERS
   const fetchOrders = async () => {
@@ -44,67 +50,82 @@ export default function Agent() {
   // 🔹 ADD SERVICE ROW
   const addServiceRow = (type) => {
 
-  setServices(prev => [
+  setServices(prev => ({
     ...prev,
-    {
-      service: type,
-      item: "",
-      quantity: 1,
-      unit: type === "washing" ? "kg" : "piece",
-      price: 0,
-      total: 0
-    }
-  ]);
+
+    [type]: [
+      ...prev[type],
+
+      {
+        item: "",
+        quantity: 1,
+        unit: type === "washing" ? "kg" : "piece",
+        price: 0,
+        total: 0
+      }
+    ]
+  }));
 };
 
-  const removeServiceRow = (index) => {
+  const removeServiceRow = (
+  serviceType,
+  index
+) => {
 
-  const updated = [...services];
+  const updated = {
+    ...services
+  };
 
-  updated.splice(index, 1);
+  updated[serviceType].splice(index, 1);
 
   setServices(updated);
 };
 
   // 🔹 UPDATE SERVICE ROW
-  const updateService = async (index, field, value) => {
+ const updateService = async (
+  serviceType,
+  index,
+  field,
+  value
+) => {
 
-  const updated = [...services];
+  const updated = {
+    ...services
+  };
 
-  updated[index][field] = value;
+  updated[serviceType][index][field] = value;
 
-  // 🔥 FETCH PRICE AUTOMATICALLY
-  if (
-    field === "item" ||
-    field === "service"
-  ) {
+  const row = updated[serviceType][index];
 
-    const service = updated[index].service;
-    const item = value;
+  // FETCH PRICE
+  if (field === "item") {
 
     const { data } = await supabase
       .from("price_master")
       .select("*")
-      .eq("service", service)
-      .ilike("item", item)
+      .eq("service", serviceType)
+      .ilike("item", value)
       .single();
 
     if (data) {
-      updated[index].price = data.price;
+      row.price = data.price;
     }
   }
 
-  // 🔥 CALCULATE TOTAL
-  updated[index].total =
-    (updated[index].quantity || 0) *
-    (updated[index].price || 0);
+  row.total =
+    (row.quantity || 0) *
+    (row.price || 0);
 
   setServices(updated);
 };
-
   // 🔹 TOTAL BILL
-  const totalBill = services.reduce((sum, s) => sum + s.total, 0);
-
+  const totalBill =
+  Object.values(services)
+    .flat()
+    .reduce(
+      (sum, row) => sum + row.total,
+      0
+    );
   // ✅ MARK RECEIVED
   const markReceived = async (id) => {
     if (services.length === 0) {
@@ -158,92 +179,138 @@ export default function Agent() {
               <button onClick={() => addServiceRow("saree")}>+ Saree Rolling</button>
 
               {/* SERVICE ROWS */}
-              {services.map((s, i) => (
+              {Object.entries(services).map(
+  ([serviceType, rows]) => (
 
-  <div
-    key={i}
-    style={{
-      marginTop: 15,
-      padding: 15,
-      border: "1px solid #ddd",
-      borderRadius: 8
-    }}
-  >
+    rows.length > 0 && (
 
-    <p>
-      <b>{s.service.toUpperCase()}</b>
-    </p>
-
-    <div
-      style={{
-        display: "flex",
-        gap: 10,
-        alignItems: "center",
-        flexWrap: "wrap"
-      }}
-    >
-
-      {/* ITEM */}
-      <select
-        value={s.item}
-        onChange={(e) =>
-          updateService(i, "item", e.target.value.toLowerCase())
-        }
+      <div
+        key={serviceType}
+        style={{
+          marginTop: 20,
+          padding: 15,
+          border: "1px solid #ddd",
+          borderRadius: 8
+        }}
       >
-        <option value="">Select Item</option>
-        <option value="shirt">Shirt</option>
-        <option value="pant">Pant</option>
-        <option value="saree">Saree</option>
-        <option value="blanket">Blanket</option>
-        <option value="blazer">Blazer</option>
-        <option value="general">General</option>
-      </select>
 
-      {/* QUANTITY */}
-      <input
-        type="number"
-        value={s.quantity}
-        placeholder={`Qty (${s.unit})`}
-        onChange={(e) =>
-          updateService(
-            i,
-            "quantity",
-            Number(e.target.value)
-          )
-        }
-      />
+        <h3>
+          {serviceType.toUpperCase()}
+        </h3>
 
-      {/* PRICE */}
-      <input
-        type="number"
-        value={s.price}
-        readOnly
-        placeholder="Price"
-      />
+        {rows.map((s, i) => (
 
-      {/* ROW TOTAL */}
-      <div>
-        ₹{s.total}
+          <div
+            key={i}
+            style={{
+              display: "flex",
+              gap: 10,
+              marginBottom: 10,
+              alignItems: "center"
+            }}
+          >
+
+            {/* ITEM */}
+            <select
+              value={s.item}
+              onChange={(e) =>
+                updateService(
+                  serviceType,
+                  i,
+                  "item",
+                  e.target.value.toLowerCase()
+                )
+              }
+            >
+              <option value="">
+                Select Item
+              </option>
+
+              <option value="shirt">
+                Shirt
+              </option>
+
+              <option value="pant">
+                Pant
+              </option>
+
+              <option value="saree">
+                Saree
+              </option>
+
+              <option value="blanket">
+                Blanket
+              </option>
+
+              <option value="blazer">
+                Blazer
+              </option>
+
+              <option value="general">
+                General
+              </option>
+
+            </select>
+
+            {/* QTY */}
+            <input
+              type="number"
+              value={s.quantity}
+              placeholder={
+                serviceType === "washing"
+                  ? "KG"
+                  : "Pieces"
+              }
+              onChange={(e) =>
+                updateService(
+                  serviceType,
+                  i,
+                  "quantity",
+                  Number(e.target.value)
+                )
+              }
+            />
+
+            {/* PRICE */}
+            <input
+              type="number"
+              value={s.price}
+              readOnly
+            />
+
+            {/* TOTAL */}
+            <div>
+              ₹{s.total}
+            </div>
+
+            {/* ADD */}
+            <button
+              onClick={() =>
+                addServiceRow(serviceType)
+              }
+            >
+              ➕
+            </button>
+
+            {/* REMOVE */}
+            <button
+              onClick={() =>
+                removeServiceRow(
+                  serviceType,
+                  i
+                )
+              }
+            >
+              ❌
+            </button>
+
+          </div>
+        ))}
+
       </div>
-
-      {/* ADD ROW */}
-      <button
-        onClick={() => addServiceRow(s.service)}
-      >
-        ➕
-      </button>
-
-      {/* REMOVE ROW */}
-      <button
-        onClick={() => removeServiceRow(i)}
-      >
-        ❌
-      </button>
-
-    </div>
-
-  </div>
-))}
+    )
+  )
+)}             
               <h3 style={{ marginTop: 20 }}>
                 Total Bill: ₹{totalBill}
               </h3>
