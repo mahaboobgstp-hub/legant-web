@@ -43,29 +43,64 @@ export default function Agent() {
 
   // 🔹 ADD SERVICE ROW
   const addServiceRow = (type) => {
-    setServices(prev => [
-      ...prev,
-      {
-        service: type,
-        item: "",
-        quantity: 0,
-        unit: type === "washing" ? "kg" : "piece",
-        price: 0,
-        total: 0
-      }
-    ]);
-  };
+
+  setServices(prev => [
+    ...prev,
+    {
+      service: type,
+      item: "",
+      quantity: 1,
+      unit: type === "washing" ? "kg" : "piece",
+      price: 0,
+      total: 0
+    }
+  ]);
+};
+
+  const removeServiceRow = (index) => {
+
+  const updated = [...services];
+
+  updated.splice(index, 1);
+
+  setServices(updated);
+};
 
   // 🔹 UPDATE SERVICE ROW
-  const updateService = (index, field, value) => {
-    const updated = [...services];
-    updated[index][field] = value;
+  const updateService = async (index, field, value) => {
 
-    updated[index].total =
-      (updated[index].quantity || 0) * (updated[index].price || 0);
+  const updated = [...services];
 
-    setServices(updated);
-  };
+  updated[index][field] = value;
+
+  // 🔥 FETCH PRICE AUTOMATICALLY
+  if (
+    field === "item" ||
+    field === "service"
+  ) {
+
+    const service = updated[index].service;
+    const item = value;
+
+    const { data } = await supabase
+      .from("price_master")
+      .select("*")
+      .eq("service", service)
+      .ilike("item", item)
+      .single();
+
+    if (data) {
+      updated[index].price = data.price;
+    }
+  }
+
+  // 🔥 CALCULATE TOTAL
+  updated[index].total =
+    (updated[index].quantity || 0) *
+    (updated[index].price || 0);
+
+  setServices(updated);
+};
 
   // 🔹 TOTAL BILL
   const totalBill = services.reduce((sum, s) => sum + s.total, 0);
@@ -124,42 +159,91 @@ export default function Agent() {
 
               {/* SERVICE ROWS */}
               {services.map((s, i) => (
-                <div key={i} style={{
-                  marginTop: 15,
-                  padding: 10,
-                  border: "1px solid #ddd",
-                  borderRadius: 8
-                }}>
 
-                  <p><b>{s.service.toUpperCase()}</b></p>
+  <div
+    key={i}
+    style={{
+      marginTop: 15,
+      padding: 15,
+      border: "1px solid #ddd",
+      borderRadius: 8
+    }}
+  >
 
-                  <select
-                    onChange={(e) => updateService(i, "item", e.target.value)}
-                  >
-                    <option>Select Item</option>
-                    <option>Shirt</option>
-                    <option>Pant</option>
-                    <option>Saree</option>
-                    <option>Blanket</option>
-                  </select>
+    <p>
+      <b>{s.service.toUpperCase()}</b>
+    </p>
 
-                  <input
-                    type="number"
-                    placeholder={`Quantity (${s.unit})`}
-                    onChange={(e) => updateService(i, "quantity", Number(e.target.value))}
-                  />
+    <div
+      style={{
+        display: "flex",
+        gap: 10,
+        alignItems: "center",
+        flexWrap: "wrap"
+      }}
+    >
 
-                  <input
-                    type="number"
-                    placeholder="Price"
-                    onChange={(e) => updateService(i, "price", Number(e.target.value))}
-                  />
+      {/* ITEM */}
+      <select
+        value={s.item}
+        onChange={(e) =>
+          updateService(i, "item", e.target.value.toLowerCase())
+        }
+      >
+        <option value="">Select Item</option>
+        <option value="shirt">Shirt</option>
+        <option value="pant">Pant</option>
+        <option value="saree">Saree</option>
+        <option value="blanket">Blanket</option>
+        <option value="blazer">Blazer</option>
+        <option value="general">General</option>
+      </select>
 
-                  <p>Total: ₹{s.total}</p>
+      {/* QUANTITY */}
+      <input
+        type="number"
+        value={s.quantity}
+        placeholder={`Qty (${s.unit})`}
+        onChange={(e) =>
+          updateService(
+            i,
+            "quantity",
+            Number(e.target.value)
+          )
+        }
+      />
 
-                </div>
-              ))}
+      {/* PRICE */}
+      <input
+        type="number"
+        value={s.price}
+        readOnly
+        placeholder="Price"
+      />
 
+      {/* ROW TOTAL */}
+      <div>
+        ₹{s.total}
+      </div>
+
+      {/* ADD ROW */}
+      <button
+        onClick={() => addServiceRow(s.service)}
+      >
+        ➕
+      </button>
+
+      {/* REMOVE ROW */}
+      <button
+        onClick={() => removeServiceRow(i)}
+      >
+        ❌
+      </button>
+
+    </div>
+
+  </div>
+))}
               <h3 style={{ marginTop: 20 }}>
                 Total Bill: ₹{totalBill}
               </h3>
