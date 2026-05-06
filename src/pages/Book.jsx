@@ -17,11 +17,34 @@ export default function BookPickup() {
       alert("Please fill all fields");
       return;
     }
+// 🔥 GET LAST ORDER
 
+const { data: lastOrder } = await supabase
+  .from("orders")
+  .select("order_number")
+  .order("created_at", { ascending: false })
+  .limit(1)
+  .single();
+
+// 🔥 GENERATE NEXT NUMBER
+
+let nextNumber = 1001;
+
+if (lastOrder?.order_number) {
+
+  const last = parseInt(
+    lastOrder.order_number.split("-")[1]
+  );
+
+  nextNumber = last + 1;
+}
+
+const orderNumber = `ELS-${nextNumber}`;
     const { error } = await supabase
       .from("orders")
       .insert([
         {
+          order_number: orderNumber,
           customer_name: name,
           phone: phone,
           address: address,
