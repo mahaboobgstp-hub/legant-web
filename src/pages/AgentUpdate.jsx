@@ -151,6 +151,19 @@ console.log("PRICE FETCH:", data, error);
       .eq("id", id);
 
     alert("Order received successfully!");
+    sendWhatsApp(
+  order.phone,
+
+  `Hello ${order.customer_name},
+
+Elegant Laundry has received your order ${order.order_number}.
+
+Clothes Count: ${order.clothes_count}
+
+Total Bill: ₹${totalBill}
+
+Thank you.`
+);
 
     setActiveOrderId(null);
     setServices([]);
@@ -169,6 +182,20 @@ console.log("PRICE FETCH:", data, error);
   alert("Order closed successfully!");
 
   fetchOrders();
+};
+
+  const sendWhatsApp = (
+  phone,
+  message
+) => {
+
+  const cleanPhone =
+    `91${phone}`;
+
+  const url =
+    `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+
+  window.open(url, "_blank");
 };
 
   return (
