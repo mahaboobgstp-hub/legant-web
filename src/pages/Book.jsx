@@ -28,16 +28,24 @@ const { data: lastOrder } = await supabase
 
 // 🔥 GENERATE NEXT NUMBER
 
+// 🔥 GENERATE NEXT ORDER NUMBER
+
 let nextNumber = 1001;
 
 if (lastOrder?.order_number) {
 
-  const last = parseInt(
-    lastOrder.order_number.split("-")[2]
-  );
+  const parts =
+    lastOrder.order_number.split("-");
 
-  nextNumber = last + 1;
+  const last = parseInt(parts[2]);
+
+  if (!isNaN(last)) {
+    nextNumber = last + 1;
+  }
 }
+
+const orderNumber =
+  `ELS-NLR-${nextNumber}`;
 
 const orderNumber = `ELS-NLR-${nextNumber}`;
     const { error } = await supabase
