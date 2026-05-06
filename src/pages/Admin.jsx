@@ -365,9 +365,11 @@ Thank you 🙏`
   </div>
 
 </div>
-    <div style={{ marginTop: 15 }}>
+   
       <div style={{ flex: 1 }}>
-
+<div>
+    LEFT GRID
+  </div>
   <b>Services Ordered</b>
 
   {order.services_data &&
@@ -443,7 +445,7 @@ Thank you 🙏`
        
 
       ))}
-
+</div>
 </div>
     {order.image_url && (
       <img
