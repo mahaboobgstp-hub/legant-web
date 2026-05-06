@@ -33,7 +33,7 @@ let nextNumber = 1001;
 if (lastOrder?.order_number) {
 
   const last = parseInt(
-    lastOrder.order_number.split("-")[1]
+    lastOrder.order_number.split("-")[2]
   );
 
   nextNumber = last + 1;
