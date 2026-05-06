@@ -186,11 +186,7 @@ console.log("PRICE FETCH:", data, error);
   {order.customer_name}
 </h3>
           <p>Status: {order.status}</p>
-          <p>
-  <b>Order ID:</b>
-  {" "}
-  {order.id.slice(0, 8)}
-</p>
+         
 
 <p>
   <b>Total Bill:</b>
