@@ -44,7 +44,13 @@ export default function Agent() {
       .eq("id", id);
 
     setActiveOrderId(id);
-    setServices([]); // reset form
+    setServices({
+  washing: [],
+  ironing: [],
+  drycleaning: [],
+  stain: [],
+  saree: []
+});
   };
 
   // 🔹 ADD SERVICE ROW
@@ -135,26 +141,30 @@ console.log("PRICE FETCH:", data, error);
       0
     );
   // ✅ MARK RECEIVED
-  const markReceived = async (id) => {
-    if (services.length === 0) {
-      alert("Please add at least one service");
-      return;
-    }
+  const markReceived = async (order) => {
 
-    await supabase
-      .from("orders")
-      .update({
-        status: "RECEIVED",
-        services_data: services,
-        bill_amount: totalBill
-      })
-      .eq("id", id);
+  const allRows = Object.values(services).flat();
 
-    alert("Order received successfully!");
-    sendWhatsApp(
-  order.phone,
+  if (allRows.length === 0) {
 
-  `Hello ${order.customer_name},
+    alert("Please add at least one service");
+    return;
+  }
+
+  await supabase
+    .from("orders")
+    .update({
+      status: "RECEIVED",
+      services_data: services,
+      bill_amount: totalBill
+    })
+    .eq("id", order.id);
+
+  // ✅ WHATSAPP
+  sendWhatsApp(
+    order.phone,
+
+    `Hello ${order.customer_name},
 
 Elegant Laundry has received your order ${order.order_number}.
 
@@ -163,50 +173,48 @@ Clothes Count: ${order.clothes_count}
 Total Bill: ₹${totalBill}
 
 Thank you.`
-);
+  );
 
-    setActiveOrderId(null);
-    setServices([]);
-    fetchOrders();
-  };
+  alert("Order received successfully!");
 
-  const markDelivered = async (id) => {
+  setActiveOrderId(null);
+
+  setServices({
+    washing: [],
+    ironing: [],
+    drycleaning: [],
+    stain: [],
+    saree: []
+  });
+
+  fetchOrders();
+};
+
+  const markDelivered = async (order) => {
 
   await supabase
     .from("orders")
     .update({
       status: "CLOSED"
     })
-    .eq("id", id);
+    .eq("id", order.id);
+
+  // ✅ WHATSAPP
+  sendWhatsApp(
+    order.phone,
+
+    `Hello ${order.customer_name},
+
+Your order ${order.order_number} has been delivered successfully.
+
+Thank you for choosing Elegant Laundry.`
+  );
 
   alert("Order closed successfully!");
 
   fetchOrders();
 };
-
-  const sendWhatsApp = (
-  phone,
-  message
-) => {
-
-  const cleanPhone =
-    `91${phone}`;
-
-  const url =
-    `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
-
-  window.open(url, "_blank");
-};
-
-  sendWhatsApp(
-  order.phone,
-
-  `Hello ${order.customer_name},
-
-Your order ${order.order_number} has been delivered successfully.
-
-Thank you for choosing Elegant Laundry.`
-);
+ 
 
   return (
     <div className="container">
@@ -337,7 +345,7 @@ whiteSpace: "nowrap"
 
       {order.status === "OUT_FOR_DELIVERY" && (
         <button
-          onClick={() => markDelivered(order.id)}
+          onClick={() => markDelivered(order)}
           style={{
             background: "green",
             color: "#fff",
@@ -517,7 +525,7 @@ whiteSpace: "nowrap"
                 Total Bill: ₹{totalBill}
               </h3>
 
-              <button onClick={() => markReceived(order.id)}>
+              <button onClick={() => markReceived(order)}>
                 Confirm Received
               </button>
 
