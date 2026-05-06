@@ -100,16 +100,24 @@ export default function Agent() {
   // FETCH PRICE
   if (field === "item") {
 
-    const { data } = await supabase
-      .from("price_master")
-      .select("*")
-      .eq("service", serviceType)
-      .ilike("item", value)
-      .single();
+    const { data, error } = await supabase
+  .from("price_master")
+  .select("*")
+  .ilike("service", serviceType)
+  .ilike("item", value)
+  .maybeSingle();
+
+console.log("PRICE FETCH:", data, error);
 
     if (data) {
-      row.price = data.price;
-    }
+
+  updated[serviceType][index].price =
+    Number(data.price);
+
+} else {
+
+  updated[serviceType][index].price = 0;
+}
   }
 
   row.total =
