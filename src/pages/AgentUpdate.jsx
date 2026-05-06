@@ -328,12 +328,7 @@ console.log("PRICE FETCH:", data, error);
   )}
 
 </div>
-          {/* ACCEPT */}
-          {order.status === "BOOKED" && (
-            <button onClick={() => acceptOrder(order.id)}>
-              Accept
-            </button>
-          )}
+         
 
           {/* 🔥 FORM */}
           {(order.status === "ACCEPTED" || activeOrderId === order.id) && (
