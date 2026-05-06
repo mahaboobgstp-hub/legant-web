@@ -157,6 +157,20 @@ console.log("PRICE FETCH:", data, error);
     fetchOrders();
   };
 
+  const markDelivered = async (id) => {
+
+  await supabase
+    .from("orders")
+    .update({
+      status: "CLOSED"
+    })
+    .eq("id", id);
+
+  alert("Order closed successfully!");
+
+  fetchOrders();
+};
+
   return (
     <div className="container">
       <h2>Agent Panel</h2>
@@ -166,6 +180,38 @@ console.log("PRICE FETCH:", data, error);
 
           <h3>{order.customer_name}</h3>
           <p>Status: {order.status}</p>
+          <p>
+  <b>Order ID:</b>
+  {" "}
+  {order.id.slice(0, 8)}
+</p>
+
+<p>
+  <b>Total Bill:</b>
+  ₹{order.bill_amount || 0}
+</p>
+
+<p>
+  <b>Clothes Count:</b>
+  {order.clothes_count || 0}
+</p>
+
+<p>
+  <b>Payment:</b>
+  {order.payment_status || "PENDING"}
+</p>
+          {order.status === "OUT_FOR_DELIVERY" && (
+
+  <button
+    onClick={() => markDelivered(order.id)}
+    style={{
+      marginTop: 15
+    }}
+  >
+    Delivered
+  </button>
+
+)}
 
           {/* ACCEPT */}
           {order.status === "BOOKED" && (
