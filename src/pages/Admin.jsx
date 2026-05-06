@@ -295,57 +295,152 @@ Thank you 🙏`
     }}
   >
 
-    <p>
-      <b>Customer:</b>
-      {order.customer_name}
-    </p>
+    <div
+  style={{
+    display: "grid",
+    gridTemplateColumns:
+      "repeat(auto-fit,minmax(220px,1fr))",
+    gap: 12,
+    marginBottom: 20
+  }}
+>
 
-    <p>
-      <b>Phone:</b>
-      {order.phone}
-    </p>
+  <div>
+    <b>Customer</b><br />
+    {order.customer_name}
+  </div>
 
-    <p>
-      <b>Address:</b>
-      {order.address}
-    </p>
+  <div>
+    <b>Phone</b><br />
+    {order.phone}
+  </div>
 
-    <p>
-      <b>Order ID:</b>
-      {order.order_number}
-    </p>
+  <div>
+    <b>Address</b><br />
+    {order.address}
+  </div>
 
-    <p>
-      <b>Status:</b>
-      {order.status}
-    </p>
+  <div>
+    <b>Order ID</b><br />
+    {order.order_number}
+  </div>
 
-    <p>
-      <b>Total Clothes:</b>
-      {order.clothes_count}
-    </p>
+  <div>
+    <b>Status</b><br />
+    {order.status}
+  </div>
 
-    <p>
-      <b>Total Bill:</b>
-      ₹{order.bill_amount || 0}
-    </p>
+  <div>
+    <b>Total Clothes</b><br />
+    {order.clothes_count}
+  </div>
 
-    <p>
-      <b>Payment:</b>
-      {order.payment_status}
-    </p>
+  <div>
+    <b>Total Bill</b><br />
+    ₹{order.bill_amount || 0}
+  </div>
 
-    <p>
-      <b>Services:</b>
-      {order.services_data
-        ? JSON.stringify(
-            order.services_data,
-            null,
-            2
-          )
-        : "No Services"}
-    </p>
+  <div>
+    <b>Payment Status</b><br />
+    {order.payment_status || "PENDING"}
+  </div>
 
+  <div>
+    <b>Payment Mode</b><br />
+    {order.payment_mode || "Not Paid"}
+  </div>
+
+  <div>
+    <b>Order Date</b><br />
+    {new Date(order.created_at)
+      .toLocaleDateString()}
+  </div>
+
+  <div>
+    <b>Order Time</b><br />
+    {new Date(order.created_at)
+      .toLocaleTimeString()}
+  </div>
+
+</div>
+    <div style={{ marginTop: 15 }}>
+
+  <b>Services Ordered</b>
+
+  {order.services_data &&
+    Object.entries(order.services_data)
+      .filter(([_, items]) => items.length > 0)
+      .map(([service, items]) => (
+
+        <div
+          key={service}
+          style={{
+            marginTop: 12,
+            border: "1px solid #ddd",
+            borderRadius: 8,
+            overflow: "hidden"
+          }}
+        >
+
+          {/* SERVICE HEADER */}
+          <div
+            style={{
+              background: "#f0f3fa",
+              padding: "8px 12px",
+              fontWeight: 700,
+              textTransform: "uppercase"
+            }}
+          >
+            {service}
+          </div>
+
+          {/* TABLE HEADER */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns:
+                "2fr 1fr 1fr 1fr",
+              padding: "8px 12px",
+              fontWeight: 600,
+              borderBottom: "1px solid #eee",
+              background: "#fafafa"
+            }}
+          >
+            <div>Item</div>
+            <div>Qty</div>
+            <div>Rate</div>
+            <div>Total</div>
+          </div>
+
+          {/* ITEMS */}
+          {items.map((item, index) => (
+
+            <div
+              key={index}
+              style={{
+                display: "grid",
+                gridTemplateColumns:
+                  "2fr 1fr 1fr 1fr",
+                padding: "8px 12px",
+                borderBottom:
+                  "1px solid #f1f1f1"
+              }}
+            >
+              <div>{item.item}</div>
+              <div>
+                {item.quantity} {item.unit}
+              </div>
+              <div>₹{item.price}</div>
+              <div>₹{item.total}</div>
+            </div>
+
+          ))}
+
+        </div>
+
+      ))}
+
+</div>
     {order.image_url && (
       <img
         src={order.image_url}
