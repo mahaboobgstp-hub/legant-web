@@ -174,6 +174,61 @@ console.log("PRICE FETCH:", data, error);
   return (
     <div className="container">
       <h2>Agent Panel</h2>
+      {/* TABLE HEADER */}
+<div
+  style={{
+    position: "sticky",
+    top: 0,
+    zIndex: 100,
+    background: "#ffffff",
+    borderRadius: 10,
+    padding: "16px 20px",
+    marginBottom: 10,
+    boxShadow: "0 2px 8px rgba(0,0,0,0.05)"
+  }}
+>
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      gap: 25,
+      fontWeight: 700,
+      fontSize: 14,
+      color: "#0d2c91",
+      textTransform: "uppercase"
+    }}
+  >
+
+    <div style={{ minWidth: 150 }}>
+      Order ID
+    </div>
+
+    <div style={{ minWidth: 220 }}>
+      Customer
+    </div>
+
+    <div style={{ minWidth: 120 }}>
+      Status
+    </div>
+
+    <div style={{ minWidth: 120 }}>
+      Clothes
+    </div>
+
+    <div style={{ minWidth: 80 }}>
+      Bill
+    </div>
+
+    <div style={{ minWidth: 120 }}>
+      Payment
+    </div>
+
+    <div style={{ marginLeft: "auto" }}>
+      Action
+    </div>
+
+  </div>
+</div>
 
       {orders.map(order => (
         <div key={order.id} className="card" style={{ marginTop: 20 }}>
@@ -191,47 +246,75 @@ console.log("PRICE FETCH:", data, error);
   }}
 >
 
+  {/* ORDER NUMBER */}
   <div
     style={{
       fontWeight: 700,
       fontSize: 18,
-      color: "#0d2c91"
+      color: "#0d2c91",
+      minWidth: 150
     }}
   >
     {order.order_number}
   </div>
 
+  {/* CUSTOMER */}
   <div
     style={{
       fontWeight: 600,
-      textTransform: "uppercase"
+      textTransform: "uppercase",
+      minWidth: 220
     }}
   >
     {order.customer_name}
   </div>
 
-  <div>
+  {/* STATUS */}
+  <div style={{ minWidth: 120 }}>
     {order.status}
   </div>
 
-  <div>
+  {/* CLOTHES */}
+  <div style={{ minWidth: 120 }}>
     {order.clothes_count || 0} Clothes
   </div>
 
-  <div>
+  {/* BILL */}
+  <div style={{ minWidth: 80 }}>
     ₹{order.bill_amount || 0}
   </div>
 
-  <div>
+  {/* PAYMENT */}
+  <div style={{ minWidth: 120 }}>
     {order.payment_status || "PENDING"}
   </div>
 
+  {/* ACCEPT BUTTON */}
+  {order.status === "BOOKED" && (
+    <button
+      onClick={() => acceptOrder(order.id)}
+      style={{
+        marginLeft: "auto",
+        background: "#0d2c91",
+        color: "white",
+        border: "none",
+        padding: "10px 18px",
+        borderRadius: 8,
+        cursor: "pointer",
+        fontWeight: 600
+      }}
+    >
+      Accept
+    </button>
+  )}
+
+  {/* DELIVERED BUTTON */}
   {order.status === "OUT_FOR_DELIVERY" && (
     <button
       onClick={() => markDelivered(order.id)}
       style={{
         marginLeft: "auto",
-        background: "#0d2c91",
+        background: "green",
         color: "white",
         border: "none",
         padding: "10px 18px",
