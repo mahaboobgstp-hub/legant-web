@@ -19,29 +19,37 @@ export default function BookPickup() {
     }
 // 🔥 GET LAST ORDER
 
-const { data: lastOrder } = await supabase
+// 🔥 GET LAST ORDER
+
+const { data: orders } = await supabase
   .from("orders")
   .select("order_number")
+  .not("order_number", "is", null)
   .order("created_at", { ascending: false })
-  .limit(1)
-  .single();
+  .limit(1);
 
 // 🔥 GENERATE NEXT NUMBER
 
 let nextNumber = 1001;
 
-if (lastOrder?.order_number) {
+if (orders && orders.length > 0) {
 
-  const parts =
-  lastOrder.order_number.split("-");
+  const lastOrderNumber =
+    orders[0].order_number;
 
-const last = parseInt(
-  parts[2]
-);
+  const numbers =
+    lastOrderNumber.match(/\d+/g);
 
-  nextNumber = last + 1;
+  if (numbers && numbers.length > 0) {
+
+    const last =
+      parseInt(numbers[numbers.length - 1]);
+
+    if (!isNaN(last)) {
+      nextNumber = last + 1;
+    }
+  }
 }
-
 const orderNumber = `ELS-NLR-${nextNumber}`;
     const { error } = await supabase
       .from("orders")
