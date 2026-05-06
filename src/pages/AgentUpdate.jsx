@@ -178,43 +178,73 @@ console.log("PRICE FETCH:", data, error);
       {orders.map(order => (
         <div key={order.id} className="card" style={{ marginTop: 20 }}>
 
-          <h3>
-  {order.order_number}
-</h3>
+          <div
+  style={{
+    display: "flex",
+    alignItems: "center",
+    gap: 25,
+    flexWrap: "wrap",
+    padding: "14px 0",
+    borderBottom: "1px solid #e5e5e5",
+    fontSize: 15,
+    fontWeight: 500
+  }}
+>
 
-<h3>
-  {order.customer_name}
-</h3>
-          <p>Status: {order.status}</p>
-         
-
-<p>
-  <b>Total Bill:</b>
-  ₹{order.bill_amount || 0}
-</p>
-
-<p>
-  <b>Clothes Count:</b>
-  {order.clothes_count || 0}
-</p>
-
-<p>
-  <b>Payment:</b>
-  {order.payment_status || "PENDING"}
-</p>
-          {order.status === "OUT_FOR_DELIVERY" && (
-
-  <button
-    onClick={() => markDelivered(order.id)}
+  <div
     style={{
-      marginTop: 15
+      fontWeight: 700,
+      fontSize: 18,
+      color: "#0d2c91"
     }}
   >
-    Delivered
-  </button>
+    {order.order_number}
+  </div>
 
-)}
+  <div
+    style={{
+      fontWeight: 600,
+      textTransform: "uppercase"
+    }}
+  >
+    {order.customer_name}
+  </div>
 
+  <div>
+    {order.status}
+  </div>
+
+  <div>
+    {order.clothes_count || 0} Clothes
+  </div>
+
+  <div>
+    ₹{order.bill_amount || 0}
+  </div>
+
+  <div>
+    {order.payment_status || "PENDING"}
+  </div>
+
+  {order.status === "OUT_FOR_DELIVERY" && (
+    <button
+      onClick={() => markDelivered(order.id)}
+      style={{
+        marginLeft: "auto",
+        background: "#0d2c91",
+        color: "white",
+        border: "none",
+        padding: "10px 18px",
+        borderRadius: 8,
+        cursor: "pointer",
+        fontWeight: 600
+      }}
+    >
+      Delivered
+    </button>
+  )}
+
+</div>
           {/* ACCEPT */}
           {order.status === "BOOKED" && (
             <button onClick={() => acceptOrder(order.id)}>
