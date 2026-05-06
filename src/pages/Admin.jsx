@@ -63,6 +63,8 @@ export default function Admin() {
 
   } else {
 
+    const paymentLink =
+  `upi://pay?pa=9704424945-6@ybl&pn=Sd Mahaboob Basha&am=${order.bill_amount}&cu=INR&tn=${order.order_number}`;
     sendWhatsApp(
   order.phone,
 
@@ -74,11 +76,12 @@ Your order is now *OUT FOR DELIVERY*.
 
 🧾 *Order ID:* ${order.order_number}
 
-💰 Amount Payable: *₹${order.bill_amount}*
+💰 *Amount Payable:* ₹${order.bill_amount}
 
-💳 You may pay:
-• Online Payment Link
-• Cash to Delivery Agent
+💳 *Pay Online:*
+${paymentLink}
+
+Or pay cash to delivery agent.
 
 Thank you 🙏`
 );
