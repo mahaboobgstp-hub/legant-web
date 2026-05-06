@@ -25,7 +25,10 @@ export default function Agent() {
   const url =
     `https://web.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(message)}`;
 
-  window.location.href = url;
+  window.open(
+    url,
+    "whatsappWindow"
+  );
 };
 
   // 🔹 FETCH ORDERS
