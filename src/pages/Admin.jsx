@@ -93,11 +93,7 @@ export default function Admin() {
           <h3>
   {order.order_number}
 </h3>
- <p>
-  <b>Order ID:</b>
-  {" "}
-  {order.id.slice(0, 8)}
-</p>
+ 
 <h3>
   {order.customer_name}
 </h3>
