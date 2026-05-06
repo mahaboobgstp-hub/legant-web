@@ -221,16 +221,19 @@ Thank you for choosing Elegant Laundry 🙏`
     .eq("id", order.id);
 
   // ✅ WHATSAPP
-  sendWhatsApp(
-    order.phone,
+ sendWhatsApp(
+  order.phone,
 
-    `Hello ${order.customer_name},
+`🎉 *Elegant Laundry Services*
 
-Your order ${order.order_number} has been delivered successfully.
+Hello *${order.customer_name}* 👋
 
-Thank you for choosing Elegant Laundry.`
-  );
+✅ Your order has been delivered successfully.
 
+🧾 *Order ID:* ${order.order_number}
+
+Thank you for choosing Elegant Laundry Services 🙏`
+);
   alert("Order closed successfully!");
 
   fetchOrders();
