@@ -17,6 +17,7 @@ export default function PriceMaster() {
       .from("price_master")
       .select("*")
       .order("created_at", { ascending: false });
+    console.log(data);
 
     if (error) {
       console.error("FETCH ERROR:", error);
@@ -220,50 +221,53 @@ export default function PriceMaster() {
 
             <tbody>
 
-              {prices.length === 0 && (
-                <tr>
-                  <td
-                    colSpan="5"
-                    style={{
-                      padding: 20,
-                      textAlign: "center"
-                    }}
-                  >
-                    No prices found
-                  </td>
-                </tr>
-              )}
+  {!prices || prices.length === 0 ? (
 
-              {prices.map((p) => (
+    <tr>
+      <td
+        colSpan="5"
+        style={{
+          padding: 20,
+          textAlign: "center"
+        }}
+      >
+        No prices found
+      </td>
+    </tr>
 
-                <tr key={p.id}>
+  ) : (
 
-                  <td style={tdStyle}>
-                    {p.service}
-                  </td>
+    prices.map((p) => (
 
-                  <td style={tdStyle}>
-                    {p.item}
-                  </td>
+      <tr key={p.id}>
 
-                  <td style={tdStyle}>
-                    {p.unit}
-                  </td>
+        <td style={tdStyle}>
+          {p.service}
+        </td>
 
-                  <td style={tdStyle}>
-                    ₹{p.price}
-                  </td>
+        <td style={tdStyle}>
+          {p.item}
+        </td>
 
-                  <td style={tdStyle}>
-                    {new Date(p.created_at).toLocaleString()}
-                  </td>
+        <td style={tdStyle}>
+          {p.unit}
+        </td>
 
-                </tr>
+        <td style={tdStyle}>
+          ₹{p.price}
+        </td>
 
-              ))}
+        <td style={tdStyle}>
+          {new Date(p.created_at).toLocaleString()}
+        </td>
 
-            </tbody>
+      </tr>
 
+    ))
+
+  )}
+
+</tbody>
           </table>
 
         </div>
