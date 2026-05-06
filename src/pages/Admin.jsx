@@ -48,24 +48,27 @@ export default function Admin() {
   };
 
   // ✅ MARK READY (SEND FOR DELIVERY)
-  const markReady = async (id) => {
-    const { error } = await supabase
-      .from("orders")
-      .update({
-        status: "READY"
-      })
-      .eq("id", id);
+  const markReady = async (order) => {
 
-    if (error) console.error(error);
-  };
+  const { error } = await supabase
+    .from("orders")
+    .update({
+      status: "READY"
+    })
+    .eq("id", order.id);
 
+  if (error) {
 
-  sendWhatsApp(
-  order.phone,
+    console.error(error);
 
-  `Hello ${order.customer_name},
+  } else {
 
-Your order ${order.order_number} is out for delivery.
+    sendWhatsApp(
+      order.phone,
+
+      `Hello ${order.customer_name},
+
+Your order ${order.order_number} is ready for delivery.
 
 Amount Payable: ₹${order.bill_amount}
 
@@ -75,7 +78,25 @@ https://your-payment-link.com
 Or pay cash to delivery agent.
 
 Thank you.`
-);
+    );
+  }
+};
+
+  const sendWhatsApp = (
+  phone,
+  message
+) => {
+
+  const cleanPhone =
+    `91${phone}`;
+
+  const url =
+    `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+
+  window.open(url, "_blank");
+};
+
+ 
   return (
     <div className="container">
       <div style={{
@@ -170,7 +191,7 @@ Thank you.`
             {order.status === "RECEIVED" && (
               <button
                 className="btn"
-                onClick={() => markReady(order.id)}
+                onClick={() => markReady(order)}
               >
                 Ready to Deliver
               </button>
