@@ -64,21 +64,24 @@ export default function Admin() {
   } else {
 
     sendWhatsApp(
-      order.phone,
+  order.phone,
 
-      `Hello ${order.customer_name},
+`🚚 *Elegant Laundry Services*
 
-Your order ${order.order_number} is ready for delivery.
+Hello *${order.customer_name}* 👋
 
-Amount Payable: ₹${order.bill_amount}
+Your order is now *OUT FOR DELIVERY*.
 
-You can pay online:
-https://your-payment-link.com
+🧾 *Order ID:* ${order.order_number}
 
-Or pay cash to delivery agent.
+💰 Amount Payable: *₹${order.bill_amount}*
 
-Thank you.`
-    );
+💳 You may pay:
+• Online Payment Link
+• Cash to Delivery Agent
+
+Thank you 🙏`
+);
   }
 };
 
