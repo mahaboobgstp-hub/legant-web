@@ -4,6 +4,8 @@ import { supabase } from "../supabaseClient";
 export default function Admin() {
 
   const [orders, setOrders] = useState([]);
+  const [expandedOrder, setExpandedOrder] =
+  useState(null);
 
   // ✅ FETCH ORDERS
   const fetchOrders = async () => {
@@ -263,8 +265,101 @@ Thank you 🙏`
           Delivered
         </button>
       )}
+      <button
+  className="btn"
+  style={{
+    background: "#444"
+  }}
+  onClick={() =>
+    setExpandedOrder(
+      expandedOrder === order.id
+        ? null
+        : order.id
+    )
+  }
+>
+  Details
+</button>
 
     </div>
+    {expandedOrder === order.id && (
+
+  <div
+    style={{
+      background: "#f8f9fc",
+      padding: 20,
+      borderRadius: 10,
+      marginTop: 12,
+      fontSize: 14,
+      lineHeight: 1.8
+    }}
+  >
+
+    <p>
+      <b>Customer:</b>
+      {order.customer_name}
+    </p>
+
+    <p>
+      <b>Phone:</b>
+      {order.phone}
+    </p>
+
+    <p>
+      <b>Address:</b>
+      {order.address}
+    </p>
+
+    <p>
+      <b>Order ID:</b>
+      {order.order_number}
+    </p>
+
+    <p>
+      <b>Status:</b>
+      {order.status}
+    </p>
+
+    <p>
+      <b>Total Clothes:</b>
+      {order.clothes_count}
+    </p>
+
+    <p>
+      <b>Total Bill:</b>
+      ₹{order.bill_amount || 0}
+    </p>
+
+    <p>
+      <b>Payment:</b>
+      {order.payment_status}
+    </p>
+
+    <p>
+      <b>Services:</b>
+      {order.services_data
+        ? JSON.stringify(
+            order.services_data,
+            null,
+            2
+          )
+        : "No Services"}
+    </p>
+
+    {order.image_url && (
+      <img
+        src={order.image_url}
+        alt="clothes"
+        style={{
+          width: 150,
+          borderRadius: 10,
+          marginTop: 10
+        }}
+      />
+    )}
+
+  </div>
+)}
 
   </div>
 ))}
