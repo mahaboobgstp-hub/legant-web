@@ -290,17 +290,20 @@ Thank you 🙏`
     background: "#f8f9fc",
     borderRadius: 10,
     marginTop: 15,
-    width: "100%"
+    width: "100%",
+    display: "flex",
+    gap: 30,
+    alignItems: "flex-start"
   }}
 >
 
     <div
   style={{
+    flex: 2,
     display: "grid",
-gridTemplateColumns: "repeat(4, 1fr)",
-gap: 20,
-alignItems: "start",
-marginBottom: 30
+    gridTemplateColumns: "repeat(6, 1fr)",
+    gap: 20,
+    alignItems: "start"
   }}
 >
 
@@ -363,6 +366,7 @@ marginBottom: 30
 
 </div>
     <div style={{ marginTop: 15 }}>
+      <div style={{ flex: 1 }}>
 
   <b>Services Ordered</b>
 
@@ -435,6 +439,7 @@ marginBottom: 30
 
           ))}
 
+        </div>
         </div>
 
       ))}
