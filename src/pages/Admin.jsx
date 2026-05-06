@@ -59,6 +59,23 @@ export default function Admin() {
     if (error) console.error(error);
   };
 
+
+  sendWhatsApp(
+  order.phone,
+
+  `Hello ${order.customer_name},
+
+Your order ${order.order_number} is out for delivery.
+
+Amount Payable: ₹${order.bill_amount}
+
+You can pay online:
+https://your-payment-link.com
+
+Or pay cash to delivery agent.
+
+Thank you.`
+);
   return (
     <div className="container">
       <div style={{
