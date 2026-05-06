@@ -178,7 +178,13 @@ console.log("PRICE FETCH:", data, error);
       {orders.map(order => (
         <div key={order.id} className="card" style={{ marginTop: 20 }}>
 
-          <h3>{order.customer_name}</h3>
+          <h3>
+  {order.order_number}
+</h3>
+
+<h3>
+  {order.customer_name}
+</h3>
           <p>Status: {order.status}</p>
           <p>
   <b>Order ID:</b>
