@@ -29,7 +29,7 @@ const url = isMobile
   : `${baseUrl}?phone=${cleanPhone}&text=${encodeURIComponent(message)}`;
 
 window.location.href = url;
-};
+
   // 🔹 FETCH ORDERS
   const fetchOrders = async () => {
     const { data } = await supabase.from("orders").select("*").order("created_at", { ascending: false });
