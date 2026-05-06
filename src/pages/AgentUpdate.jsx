@@ -190,7 +190,7 @@ console.log("PRICE FETCH:", data, error);
   <div
     style={{
       display: "grid",
-      gridTemplateColumns: "170px 220px 140px 120px 100px 120px 120px",
+      gridTemplateColumns: "1.4fr 2fr 1.2fr 1fr 1fr 1.2fr 1fr",
       gap: 10,
       fontSize: 13,
       fontWeight: 700,
@@ -221,17 +221,17 @@ console.log("PRICE FETCH:", data, error);
     borderRadius: 12,
     padding: "14px 18px",
     marginBottom: 12,
-    overflowX: "auto"
+    overflow: "hidden"
   }}
 >
 
   <div
     style={{
       display: "grid",
-      gridTemplateColumns: "170px 220px 140px 120px 100px 120px 120px",
+      gridTemplateColumns: "1.4fr 2fr 1.2fr 1fr 1fr 1.2fr 1fr",
       alignItems: "center",
       gap: 10,
-      fontSize: 14,
+      fontSize: 13,
       whiteSpace: "nowrap"
     }}
   >
@@ -251,7 +251,8 @@ console.log("PRICE FETCH:", data, error);
       style={{
         fontWeight: 600,
         overflow: "hidden",
-        textOverflow: "ellipsis"
+textOverflow: "ellipsis",
+whiteSpace: "nowrap"
       }}
     >
       {order.customer_name}
