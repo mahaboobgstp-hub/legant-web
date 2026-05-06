@@ -15,6 +15,20 @@ export default function Agent() {
   saree: []
 });
 
+  const sendWhatsApp = (
+  phone,
+  message
+) => {
+
+  const cleanPhone =
+    `91${phone}`;
+
+  const url =
+    `https://wa.me/${cleanPhone}?text=${encodeURIComponent(message)}`;
+
+  window.open(url, "_blank");
+};
+
   // 🔹 FETCH ORDERS
   const fetchOrders = async () => {
     const { data } = await supabase.from("orders").select("*").order("created_at", { ascending: false });
