@@ -39,7 +39,7 @@ if (lastOrder?.order_number) {
   nextNumber = last + 1;
 }
 
-const orderNumber = `ELS-${nextNumber}`;
+const orderNumber = `ELS-NLR-${nextNumber}`;
     const { error } = await supabase
       .from("orders")
       .insert([
