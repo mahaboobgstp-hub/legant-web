@@ -285,23 +285,22 @@ Thank you 🙏`
     {expandedOrder === order.id && (
 
   <div
-    style={{
-      background: "#f8f9fc",
-      padding: 20,
-      borderRadius: 10,
-      marginTop: 12,
-      fontSize: 14,
-      lineHeight: 1.8
-    }}
-  >
+  style={{
+    padding: 20,
+    background: "#f8f9fc",
+    borderRadius: 10,
+    marginTop: 15,
+    width: "100%"
+  }}
+>
 
     <div
   style={{
     display: "grid",
-    gridTemplateColumns:
-      "repeat(auto-fit,minmax(220px,1fr))",
-    gap: 12,
-    marginBottom: 20
+gridTemplateColumns: "repeat(4, 1fr)",
+gap: 20,
+alignItems: "start",
+marginBottom: 30
   }}
 >
 
